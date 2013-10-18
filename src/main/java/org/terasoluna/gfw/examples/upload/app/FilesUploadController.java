@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.upload.domain.service.UploadFileInfo;
 import org.terasoluna.gfw.examples.upload.domain.service.UploadService;
-import org.terasoluna.gfw.examples.upload.domain.service.UploadFile;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
@@ -54,14 +54,14 @@ public class FilesUploadController {
         }
 
         // save tmp files.
-        List<UploadFile> uploadTmpFiles = new ArrayList<UploadFile>();
+        List<UploadFileInfo> uploadTmpFiles = new ArrayList<UploadFileInfo>();
         for (FileUploadForm fileUploadForm : form.getUploadUploadForms()) {
             MultipartFile uploadedFile = fileUploadForm.getFile();
             if (!StringUtils.hasLength(uploadedFile.getOriginalFilename())) {
                 continue;
             }
             String tmpFileId = uploadHelper.saveTmpFile(uploadedFile);
-            uploadTmpFiles.add(new UploadFile(tmpFileId, uploadedFile.getOriginalFilename(), fileUploadForm
+            uploadTmpFiles.add(new UploadFileInfo(tmpFileId, uploadedFile.getOriginalFilename(), fileUploadForm
                     .getDescription()));
         }
 

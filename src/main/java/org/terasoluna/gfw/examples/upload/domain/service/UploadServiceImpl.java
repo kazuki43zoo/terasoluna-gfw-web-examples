@@ -1,6 +1,7 @@
 package org.terasoluna.gfw.examples.upload.domain.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,26 +20,27 @@ public class UploadServiceImpl implements UploadService {
     private File uploadFileSaveDir;
 
     @Override
-    public void saveFile(String tmpFileId, String fileName, String description) {
+    public UploadFileInfo saveFile(String tmpFileId, String fileName, String description) {
         File tmpFile = new File(uploadFileTmpDir, tmpFileId);
         String fileId = UUID.randomUUID().toString();
 
         tmpFile.renameTo(new File(uploadFileSaveDir, fileId));
         tmpFile.delete();
-
+        return new UploadFileInfo(fileId, fileName, description);
     }
 
     @Override
-    public void saveFile(UploadFile uploadTmpFile) {
-        saveFile(uploadTmpFile.getFileId(), uploadTmpFile.getFileName(), uploadTmpFile.getDescription());
-
+    public UploadFileInfo saveFile(UploadFileInfo uploadTmpFile) {
+        return saveFile(uploadTmpFile.getFileId(), uploadTmpFile.getFileName(), uploadTmpFile.getDescription());
     }
 
     @Override
-    public void saveFiles(List<UploadFile> uploadTmpFiles) {
-        for (UploadFile uploadTmpFile : uploadTmpFiles) {
-            saveFile(uploadTmpFile);
+    public List<UploadFileInfo> saveFiles(List<UploadFileInfo> uploadTmpFiles) {
+        List<UploadFileInfo> savedUploadFiles = new ArrayList<UploadFileInfo>();
+        for (UploadFileInfo uploadTmpFile : uploadTmpFiles) {
+            savedUploadFiles.add(saveFile(uploadTmpFile));
         }
+        return savedUploadFiles;
     }
 
 }
