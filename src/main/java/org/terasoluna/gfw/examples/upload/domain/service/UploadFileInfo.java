@@ -2,13 +2,13 @@ package org.terasoluna.gfw.examples.upload.domain.service;
 
 import java.io.Serializable;
 
-public class UploadFile implements Serializable {
+public class UploadFileInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String fileId;
     private String fileName;
     private String description;
 
-    public UploadFile(String fileId, String fileName, String description) {
+    public UploadFileInfo(String fileId, String fileName, String description) {
         this.fileId = fileId;
         this.fileName = fileName;
         this.description = description;
