@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,14 +31,9 @@ public class FilesUploadController {
     @Inject
     private DirectUploadService directUploadService;
 
-    @ModelAttribute
-    public FilesUploadForm setupFilesUploadForm() {
-        return new FilesUploadForm();
-    }
-
     @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
     @RequestMapping(method = RequestMethod.GET)
-    public String uploadFilesForm() {
+    public String uploadFilesForm(FilesUploadForm form) {
         return "upload/uploadFiles";
     }
 

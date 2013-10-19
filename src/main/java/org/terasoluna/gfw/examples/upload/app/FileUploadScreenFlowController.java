@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,23 +49,13 @@ public class FileUploadScreenFlowController {
     private Mapper beanMapper;
 
     /**
-     * Setup file upload form.
-     * 
-     * @return Instance of file upload form.
-     */
-    @ModelAttribute
-    public FileUploadForm setupFileUploadForm() {
-        return new FileUploadForm();
-    }
-
-    /**
      * View the upload form screen.
      * 
      * @return View name of upload form screen
      */
     @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
     @RequestMapping(method = RequestMethod.GET)
-    public String uploadFileForm() {
+    public String uploadFileForm(FileUploadForm form) {
         return "upload/uploadForm";
     }
 

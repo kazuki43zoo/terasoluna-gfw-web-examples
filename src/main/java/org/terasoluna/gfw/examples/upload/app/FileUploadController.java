@@ -8,7 +8,6 @@ import javax.validation.groups.Default;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,14 +28,9 @@ public class FileUploadController {
     @Inject
     private DirectUploadService directUploadService;
 
-    @ModelAttribute
-    public FileUploadForm setupFileUploadForm() {
-        return new FileUploadForm();
-    }
-
     @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
     @RequestMapping(method = RequestMethod.GET)
-    public String uploadFileForm() {
+    public String uploadFileForm(FileUploadForm form) {
         return "upload/uploadFile";
     }
 
