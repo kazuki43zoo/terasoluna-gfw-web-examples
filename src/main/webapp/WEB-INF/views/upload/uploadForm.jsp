@@ -22,7 +22,7 @@
                 <%-- if file already selected --%>
                 <c:when test="${ !empty fileUploadForm.fileName}">
                     Upload File : <form:button name="delete">Delete</form:button>
-                    <a target="confirmUploadFile" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+                    <a target="${fileUploadForm.fileId}" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
                         ${f:h(fileUploadForm.fileName)}
                     </a>
                     <form:hidden path="fileName" />
@@ -33,6 +33,7 @@
                 <c:otherwise>
                     <form:label path="file">Upload File</form:label> : 
                     <form:input type="file" path="file" />
+                    <form:button name="upload">Upload</form:button>
                     <form:errors path="file" /><br>
                 </c:otherwise>
             </c:choose>
@@ -46,7 +47,7 @@
                    <form:button name="confirm">Confirm</form:button>
                 </c:when>
                 <c:otherwise>
-                   <form:button name="upload">Upload</form:button>
+                   <form:button name="confirmAndUpload">Confirm</form:button>
                 </c:otherwise>
             </c:choose>
             

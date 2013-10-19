@@ -16,9 +16,9 @@ public class FileUploadForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @UploadFileRequired(groups = { SingleFileUpload.class })
-    @UploadFileNotEmpty
-    @UploadFileMaxSize
-    @UploadFileNameMaxLength
+    @UploadFileNotEmpty(groups = { FileUpload.class })
+    @UploadFileMaxSize(groups = { FileUpload.class })
+    @UploadFileNameMaxLength(groups = { FileUpload.class })
     private MultipartFile file;
 
     @NotNull
@@ -65,6 +65,9 @@ public class FileUploadForm implements Serializable {
     }
 
     public static interface SingleFileUpload {
+    }
+
+    public static interface FileUpload {
     }
 
     public static interface Upload {

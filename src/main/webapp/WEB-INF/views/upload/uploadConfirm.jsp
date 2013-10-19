@@ -16,7 +16,7 @@
 
             <%-- upload confirm form --%>
             Upload File : 
-            <a target="confirmUploadFile" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+            <a target="${fileUploadForm.fileId}" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
                 ${f:h(fileUploadForm.fileName)}
             </a>
             <form:hidden path="fileName" />

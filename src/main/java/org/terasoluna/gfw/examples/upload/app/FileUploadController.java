@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.upload.app.FileUploadForm.FileUpload;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.SingleFileUpload;
 import org.terasoluna.gfw.examples.upload.domain.service.DirectUploadService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
@@ -41,7 +42,8 @@ public class FileUploadController {
 
     @TransactionTokenCheck
     @RequestMapping(method = RequestMethod.POST)
-    public String uploadFile(@Validated({ SingleFileUpload.class, Default.class }) FileUploadForm form,
+    public String uploadFile(
+            @Validated({ SingleFileUpload.class, FileUpload.class, Default.class }) FileUploadForm form,
             BindingResult result, RedirectAttributes redirectAttributes, TransactionTokenContext txTokenContext)
             throws IOException {
 

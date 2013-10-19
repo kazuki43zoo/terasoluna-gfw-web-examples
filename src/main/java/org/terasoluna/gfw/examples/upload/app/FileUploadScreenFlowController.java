@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.DeleteUploadFile;
+import org.terasoluna.gfw.examples.upload.app.FileUploadForm.FileUpload;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.SingleFileUpload;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.Upload;
 import org.terasoluna.gfw.examples.upload.domain.service.UploadFileInfo;
@@ -76,12 +77,43 @@ public class FileUploadScreenFlowController {
      *            Instance of upload form.
      * @param result
      *            Binding result(Validation result) of form.
+     * @return View name of upload form screen.
+     */
+    @TransactionTokenCheck
+    @RequestMapping(method = RequestMethod.POST, params = "upload")
+    public String uploadFile(@Validated({ SingleFileUpload.class, FileUpload.class }) FileUploadForm form,
+            BindingResult result) {
+
+        // handle validation result.
+        if (result.hasErrors()) {
+            return "upload/uploadForm";
+        }
+
+        // save temporary file.
+        MultipartFile multipartFile = form.getFile();
+        String tmpFileId = uploadHelper.saveTmpFile(multipartFile);
+
+        // retain temporary file information in form.
+        form.setFileId(tmpFileId);
+        form.setFileName(multipartFile.getOriginalFilename());
+
+        return "upload/uploadForm";
+    }
+
+    /**
+     * Confirm & Upload file to the temporary directory.
+     * 
+     * @param form
+     *            Instance of upload form.
+     * @param result
+     *            Binding result(Validation result) of form.
      * @return View name of upload confirm screen. If occurred a validation
      *         error, return view name of upload form screen.
      */
     @TransactionTokenCheck
-    @RequestMapping(method = RequestMethod.POST, params = "upload")
-    public String uploadFile(@Validated({ SingleFileUpload.class, Default.class }) FileUploadForm form,
+    @RequestMapping(method = RequestMethod.POST, params = "confirmAndUpload")
+    public String confirmAndUpload(
+            @Validated({ SingleFileUpload.class, FileUpload.class, Default.class }) FileUploadForm form,
             BindingResult result) {
 
         // handle validation result.
@@ -148,9 +180,6 @@ public class FileUploadScreenFlowController {
         // cleanup tmp file information in form.
         form.setFileId(null);
         form.setFileName(null);
-
-        // set result message.
-        model.addAttribute(ResultMessages.success().add("i.xx.fw.0002"));
 
         return "upload/uploadForm";
     }
