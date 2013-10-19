@@ -3,11 +3,12 @@ package org.terasoluna.gfw.examples.upload.app;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileAllowableExtension;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileMaxSize;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFileNameMaxLength;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileNotEmpty;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileRequired;
 
@@ -15,15 +16,23 @@ public class FileUploadForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @UploadFileRequired(groups = SingleFileUpload.class)
+    @UploadFileRequired(groups = { SingleFileUpload.class })
     @UploadFileNotEmpty
     @UploadFileMaxSize(20)
+    @UploadFileNameMaxLength(20)
     @UploadFileAllowableExtension("txt")
     private MultipartFile file;
 
     @NotNull
-    @Length(max = 100)
+    @Size(max = 100)
     private String description;
+
+    @NotNull(groups = Upload.class)
+    @Size(max = 20, groups = Upload.class)
+    private String fileName;
+
+    @NotNull(groups = { Upload.class, DeleteUploadFile.class })
+    private String fileId;
 
     public MultipartFile getFile() {
         return file;
@@ -41,7 +50,29 @@ public class FileUploadForm implements Serializable {
         this.description = description;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
     public static interface SingleFileUpload {
+    }
+
+    public static interface Upload {
+    }
+
+    public static interface DeleteUploadFile {
     }
 
 }

@@ -4,10 +4,12 @@ import java.util.List;
 
 public interface UploadService {
 
+    void deleteTmpFile(String uploadTmpFileId);
+
     UploadFileInfo saveFile(String uploadTmpFileId, String fileName, String description);
 
-    UploadFileInfo saveFile(UploadFileInfo uploadTmpFile);
+    UploadFileInfo saveFile(UploadFileInfo uploadTmpFileInfo);
 
-    List<UploadFileInfo> saveFiles(List<UploadFileInfo> uploadTmpFiles);
+    List<UploadFileInfo> saveFiles(List<UploadFileInfo> uploadTmpFileInfos);
 
 }

@@ -9,6 +9,10 @@ public class DirectUploadFileInfo implements Serializable {
     private String fileName;
     private String description;
 
+    public DirectUploadFileInfo() {
+
+    }
+
     public DirectUploadFileInfo(InputStream inputStream, String fileName, String description) {
         this.inputStream = inputStream;
         this.fileName = fileName;

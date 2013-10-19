@@ -20,8 +20,8 @@ import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenContext;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
-@TransactionTokenCheck("upload")
-@RequestMapping("upload")
+@TransactionTokenCheck("upload/single")
+@RequestMapping("upload/single")
 @Controller
 public class FileUploadController {
 
@@ -33,14 +33,14 @@ public class FileUploadController {
         return new FileUploadForm();
     }
 
-    @TransactionTokenCheck(value = "file", type = TransactionTokenType.BEGIN)
-    @RequestMapping(value = "file", method = RequestMethod.GET)
+    @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
+    @RequestMapping(method = RequestMethod.GET)
     public String uploadFileForm() {
         return "upload/uploadFile";
     }
 
-    @TransactionTokenCheck(value = "file")
-    @RequestMapping(value = "file", method = RequestMethod.POST)
+    @TransactionTokenCheck
+    @RequestMapping(method = RequestMethod.POST)
     public String uploadFile(@Validated({ SingleFileUpload.class, Default.class }) FileUploadForm form,
             BindingResult result, RedirectAttributes redirectAttributes, TransactionTokenContext txTokenContext)
             throws IOException {
@@ -61,7 +61,7 @@ public class FileUploadController {
         // remove transaction token.
         txTokenContext.removeToken();
 
-        return "redirect:/upload/file";
+        return "redirect:/upload/single";
     }
 
 }

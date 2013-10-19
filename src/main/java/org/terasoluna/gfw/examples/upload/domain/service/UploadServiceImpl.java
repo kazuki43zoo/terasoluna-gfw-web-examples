@@ -6,31 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.SystemException;
+import org.terasoluna.gfw.examples.upload.common.UploadConfig;
 
 @Transactional
 @Service
 public class UploadServiceImpl implements UploadService {
 
-    @Value("${app.upload.tmpDir}")
-    private File uploadFileTmpDir;
-
-    @Value("${app.upload.saveDir}")
-    private File uploadFileSaveDir;
+    @Inject
+    private UploadConfig uploadConfig;
 
     @Override
     public UploadFileInfo saveFile(String uploadTmpFileId, String fileName, String description) {
         String fileId = UUID.randomUUID().toString();
-        File uploadFile = new File(uploadFileSaveDir, fileId);
-        File uploadTmpFile = new File(uploadFileTmpDir, uploadTmpFileId);
+        File uploadFile = new File(uploadConfig.getUploadSaveDir(), fileId);
+        File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
         try {
             FileUtils.moveFile(uploadTmpFile, uploadFile);
         } catch (IOException e) {
-            throw new SystemException("e.xx.fw.9001", e);
+            throw new SystemException("e.xx.fw.9003", e);
         }
         return new UploadFileInfo(fileId, fileName, description);
     }
@@ -48,6 +47,11 @@ public class UploadServiceImpl implements UploadService {
             savedUploadFiles.add(saveFile(uploadTmpFileInfo));
         }
         return savedUploadFiles;
+    }
+
+    public void deleteTmpFile(String uploadTmpFileId) {
+        File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
+        FileUtils.deleteQuietly(uploadTmpFile);
     }
 
 }

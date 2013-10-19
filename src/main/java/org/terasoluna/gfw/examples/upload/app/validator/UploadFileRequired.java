@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UploadFileRequiredValidator.class)
 public @interface UploadFileRequired {
-    String message() default "{org.terasoluna.examples.upload.app.UploadFileRequired}";
+    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileRequired}";
 
     Class<?>[] groups() default {};
 

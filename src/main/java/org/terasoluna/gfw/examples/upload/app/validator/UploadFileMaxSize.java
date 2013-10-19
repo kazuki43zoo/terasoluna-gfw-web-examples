@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UploadFileMaxSizeValidator.class)
 public @interface UploadFileMaxSize {
-    String message() default "{org.terasoluna.examples.upload.app.UploadFileMaxSize}";
+    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileMaxSize}";
 
     long value() default (1024 * 1024);
 

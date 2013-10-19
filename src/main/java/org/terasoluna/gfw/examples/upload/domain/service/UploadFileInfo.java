@@ -8,6 +8,10 @@ public class UploadFileInfo implements Serializable {
     private String fileName;
     private String description;
 
+    public UploadFileInfo() {
+
+    }
+
     public UploadFileInfo(String fileId, String fileName, String description) {
         this.fileId = fileId;
         this.fileName = fileName;
