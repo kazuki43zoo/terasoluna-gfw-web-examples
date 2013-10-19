@@ -60,7 +60,7 @@ public class FileUploadScreenFlowController {
     }
 
     /**
-     * Confirm & Upload file to the temporary directory.
+     * Upload file to the temporary directory.
      * 
      * @param form
      *            Instance of upload form.
