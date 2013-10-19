@@ -17,6 +17,7 @@ import org.terasoluna.gfw.common.message.ResultMessages;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.SingleFileUpload;
 import org.terasoluna.gfw.examples.upload.domain.service.DirectUploadService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
+import org.terasoluna.gfw.web.token.transaction.TransactionTokenContext;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
 @TransactionTokenCheck("upload")
@@ -41,7 +42,8 @@ public class FileUploadController {
     @TransactionTokenCheck(value = "file")
     @RequestMapping(value = "file", method = RequestMethod.POST)
     public String uploadFile(@Validated({ SingleFileUpload.class, Default.class }) FileUploadForm form,
-            BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+            BindingResult result, RedirectAttributes redirectAttributes, TransactionTokenContext txTokenContext)
+            throws IOException {
 
         // handle validation result.
         if (result.hasErrors()) {
@@ -55,6 +57,9 @@ public class FileUploadController {
 
         // set result message.
         redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.xx.fw.0001"));
+
+        // remove transaction token.
+        txTokenContext.removeToken();
 
         return "redirect:/upload/file";
     }

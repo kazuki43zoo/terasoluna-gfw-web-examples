@@ -38,7 +38,7 @@
 
     <!-- TERASOLUNA -->
     <logger name="org.terasoluna.gfw">
-        <level value="debug" />
+        <level value="trace" />
     </logger>
     <logger name="org.terasoluna.gfw.web.logging.TraceLoggingInterceptor">
         <level value="trace" />
