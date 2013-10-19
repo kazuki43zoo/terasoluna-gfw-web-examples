@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.SystemException;
 import org.terasoluna.gfw.examples.upload.common.UploadConfig;
+import org.terasoluna.gfw.examples.upload.common.UploadFileIdGenerator;
 
 @Transactional
 @Service
@@ -21,9 +21,12 @@ public class UploadServiceImpl implements UploadService {
     @Inject
     private UploadConfig uploadConfig;
 
+    @Inject
+    private UploadFileIdGenerator uploadFileIdGenerator;
+
     @Override
     public UploadFileInfo saveFile(String uploadTmpFileId, String fileName, String description) {
-        String fileId = UUID.randomUUID().toString();
+        String fileId = uploadFileIdGenerator.generate();
         File uploadFile = new File(uploadConfig.getUploadSaveDir(), fileId);
         File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
         try {
