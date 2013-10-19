@@ -1,7 +1,5 @@
 package org.terasoluna.gfw.examples.upload.app;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.validation.groups.Default;
 
@@ -72,7 +70,7 @@ public class FileUploadScreenFlowController {
     }
 
     /**
-     * Comform & Upload file to the temporary directory.
+     * Confirm & Upload file to the temporary directory.
      * 
      * @param form
      *            Instance of upload form.
@@ -80,13 +78,11 @@ public class FileUploadScreenFlowController {
      *            Binding result(Validation result) of form.
      * @return View name of upload confirm screen. If occurred a validation
      *         error, return view name of upload form screen.
-     * @throws IOException
-     *             If fail that upload file save to the temporary directory.
      */
     @TransactionTokenCheck
     @RequestMapping(method = RequestMethod.POST, params = "upload")
     public String uploadFile(@Validated({ SingleFileUpload.class, Default.class }) FileUploadForm form,
-            BindingResult result) throws IOException {
+            BindingResult result) {
 
         // handle validation result.
         if (result.hasErrors()) {
@@ -130,10 +126,12 @@ public class FileUploadScreenFlowController {
      * Delete upload file from the temporary directory.
      * 
      * @param form
+     *            Instance of upload form.
      * @param result
+     *            Binding result(Validation result) of form.
      * @param model
-     * @return
-     * @throws IOException
+     *            Instance of Model container.
+     * @return View name of upload form screen.
      */
     @TransactionTokenCheck
     @RequestMapping(method = RequestMethod.POST, params = "delete")
@@ -157,12 +155,31 @@ public class FileUploadScreenFlowController {
         return "upload/uploadForm";
     }
 
+    /**
+     * Back to the upload form screen.
+     * 
+     * @param form
+     *            Instance of upload form.
+     * @return View name of upload form screen.
+     */
     @TransactionTokenCheck
     @RequestMapping(method = RequestMethod.POST, params = "redo")
     public String uploadRedo(FileUploadForm form) {
         return "upload/uploadForm";
     }
 
+    /**
+     * Upload file.
+     * 
+     * @param form
+     *            Instance of upload form.
+     * @param result
+     *            Binding result(Validation result) of form.
+     * @param redirectAttributes
+     *            Instance of Model container for redirect
+     * @return View name of redirect upload complete screen. If occurred a
+     *         validation error, return view name of upload form screen.
+     */
     @TransactionTokenCheck
     @RequestMapping(method = RequestMethod.POST)
     public String upload(@Validated({ Upload.class, Default.class }) FileUploadForm form, BindingResult result,
@@ -188,6 +205,11 @@ public class FileUploadScreenFlowController {
         return "redirect:/upload/flow?complete";
     }
 
+    /**
+     * View the upload complete screen.
+     * 
+     * @return View name of upload complete screen.
+     */
     @RequestMapping(method = RequestMethod.GET, params = "complete")
     public String uploadComplete() {
         return "upload/uploadComplete";
