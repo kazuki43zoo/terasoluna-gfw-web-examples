@@ -15,7 +15,10 @@
             modelAttribute="fileUploadForm">
 
             <%-- upload confirm form --%>
-            Upload File : ${f:h(fileUploadForm.fileName)}
+            Upload File : 
+            <a target="confirmUploadFile" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+                ${f:h(fileUploadForm.fileName)}
+            </a>
             <form:hidden path="fileName" />
             <form:hidden path="fileId" /><br>
 

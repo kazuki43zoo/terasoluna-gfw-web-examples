@@ -22,7 +22,9 @@
                 <%-- if file already selected --%>
                 <c:when test="${ !empty fileUploadForm.fileName}">
                     Upload File : <form:button name="delete">Delete</form:button>
-                    ${f:h(fileUploadForm.fileName)}
+                    <a target="confirmUploadFile" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+                        ${f:h(fileUploadForm.fileName)}
+                    </a>
                     <form:hidden path="fileName" />
                     <form:hidden path="fileId" />
                     <br>

@@ -15,7 +15,7 @@
         <t:messagesPanel />
 
         <%-- uploaded file information --%>
-        Upload File : ${f:h(uploadFileInfo.fileName)}<br>
+        Upload File : <a target="downloadUploadFile" href="${pageContext.request.contextPath}/download/${f:u(uploadFileInfo.fileId)}">${f:h(uploadFileInfo.fileName)}</a><br>
         Description : ${f:h(uploadFileInfo.description)}<br>
 
         <br>

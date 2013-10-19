@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.terasoluna.gfw.examples.upload.app.validator.UploadFileAllowableExtension;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileMaxSize;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileNameMaxLength;
 import org.terasoluna.gfw.examples.upload.app.validator.UploadFileNotEmpty;
@@ -18,9 +17,8 @@ public class FileUploadForm implements Serializable {
 
     @UploadFileRequired(groups = { SingleFileUpload.class })
     @UploadFileNotEmpty
-    @UploadFileMaxSize(20)
-    @UploadFileNameMaxLength(20)
-    @UploadFileAllowableExtension("txt")
+    @UploadFileMaxSize
+    @UploadFileNameMaxLength
     private MultipartFile file;
 
     @NotNull
@@ -28,7 +26,7 @@ public class FileUploadForm implements Serializable {
     private String description;
 
     @NotNull(groups = Upload.class)
-    @Size(max = 20, groups = Upload.class)
+    @Size(max = 256, groups = Upload.class)
     private String fileName;
 
     @NotNull(groups = { Upload.class, DeleteUploadFile.class })
