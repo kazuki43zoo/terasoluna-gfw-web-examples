@@ -9,5 +9,5 @@ Examples of TERASOLUNA Global Framework for web
  - Upload single file.
  - Upload multiple file.
  - Upload single file with in screen flow.
- - Download upload file.
+ - Download upload file with in screen flow.
  - Clean up temporary files by task scheduler.
