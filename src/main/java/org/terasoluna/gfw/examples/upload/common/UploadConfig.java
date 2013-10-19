@@ -5,7 +5,6 @@ import java.io.File;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.terasoluna.gfw.common.exception.SystemException;
 
 @Component
 public class UploadConfig implements InitializingBean {
@@ -35,21 +34,22 @@ public class UploadConfig implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         if (!uploadTmpDir.exists()) {
-            throw new SystemException("e.xx.fw.9004",
-                    "Upload temporary dorectory is not exists. Temporary dorectory is '"
-                            + uploadTmpDir.getAbsolutePath() + "'.");
+            throw new IllegalArgumentException("Upload temporary dorectory is not exists. Temporary dorectory is '"
+                    + uploadTmpDir.getAbsolutePath() + "'.");
         }
         if (!uploadTmpDir.isDirectory()) {
-            throw new SystemException("e.xx.fw.9004",
-                    "Property value('app.upload.tmpDir') is wrong. Please specify the existing directory path.");
+            throw new IllegalArgumentException(
+                    "Property value('app.upload.tmpDir') is wrong(not direcotry). Please specify the existing directory path. Property value is '"
+                            + uploadTmpDir.getAbsolutePath() + "'.");
         }
         if (!uploadSaveDir.exists()) {
-            throw new SystemException("e.xx.fw.9004", "Upload save dorectory is not exists. Save dorectory is '"
+            throw new IllegalArgumentException("Upload save dorectory is not exists. Save dorectory is '"
                     + uploadSaveDir.getAbsolutePath() + "'.");
         }
         if (!uploadSaveDir.isDirectory()) {
-            throw new SystemException("e.xx.fw.9004",
-                    "Property value('app.upload.saveDir') is wrong. Please specify the existing directory path.");
+            throw new IllegalArgumentException(
+                    "Property value('app.upload.saveDir') is wrong(not direcotry). Please specify the existing directory path. Property value is '"
+                            + uploadSaveDir.getAbsolutePath() + "'.");
         }
     }
 }
