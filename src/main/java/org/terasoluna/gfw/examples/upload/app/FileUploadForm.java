@@ -6,6 +6,10 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFileAllowableExtension;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFileMaxSize;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFileNotEmpty;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFileRequired;
 
 public class FileUploadForm implements Serializable {
 

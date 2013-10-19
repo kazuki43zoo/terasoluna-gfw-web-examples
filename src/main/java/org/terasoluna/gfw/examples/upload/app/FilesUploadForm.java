@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.terasoluna.gfw.examples.upload.app.validator.UploadFilesRequired;
 
 public class FilesUploadForm implements Serializable {
 

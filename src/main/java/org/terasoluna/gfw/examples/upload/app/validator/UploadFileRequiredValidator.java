@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.upload.app;
+package org.terasoluna.gfw.examples.upload.app.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

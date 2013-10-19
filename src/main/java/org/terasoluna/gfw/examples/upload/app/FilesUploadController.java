@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
-import org.terasoluna.gfw.examples.upload.domain.service.UploadFileInfo;
-import org.terasoluna.gfw.examples.upload.domain.service.UploadService;
+import org.terasoluna.gfw.examples.upload.domain.service.DirectUploadFileInfo;
+import org.terasoluna.gfw.examples.upload.domain.service.DirectUploadService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
@@ -27,10 +27,7 @@ import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 public class FilesUploadController {
 
     @Inject
-    private UploadHelper uploadHelper;;
-
-    @Inject
-    private UploadService uploadService;
+    private DirectUploadService directUploadService;
 
     @ModelAttribute
     public FilesUploadForm setupFilesUploadForm() {
@@ -53,20 +50,17 @@ public class FilesUploadController {
             return "upload/uploadFiles";
         }
 
-        // save tmp files.
-        List<UploadFileInfo> uploadTmpFiles = new ArrayList<UploadFileInfo>();
+        // save files.
+        List<DirectUploadFileInfo> uploadTmpFiles = new ArrayList<DirectUploadFileInfo>();
         for (FileUploadForm fileUploadForm : form.getUploadUploadForms()) {
-            MultipartFile uploadedFile = fileUploadForm.getFile();
-            if (!StringUtils.hasLength(uploadedFile.getOriginalFilename())) {
+            MultipartFile multipartFile = fileUploadForm.getFile();
+            if (!StringUtils.hasLength(multipartFile.getOriginalFilename())) {
                 continue;
             }
-            String tmpFileId = uploadHelper.saveTmpFile(uploadedFile);
-            uploadTmpFiles.add(new UploadFileInfo(tmpFileId, uploadedFile.getOriginalFilename(), fileUploadForm
-                    .getDescription()));
+            uploadTmpFiles.add(new DirectUploadFileInfo(multipartFile.getInputStream(), multipartFile
+                    .getOriginalFilename(), fileUploadForm.getDescription()));
         }
-
-        // save files.
-        uploadService.saveFiles(uploadTmpFiles);
+        directUploadService.saveFiles(uploadTmpFiles);
 
         // set result message.
         redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.xx.fw.0001"));

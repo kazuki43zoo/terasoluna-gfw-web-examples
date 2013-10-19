@@ -11,14 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class UploadHelper {
 
-    @Value("${upload.tmpDir}")
+    @Value("${app.upload.tmpDir}")
     private File uploadFileTmpDir;
 
-    public String saveTmpFile(MultipartFile uploadedFile) throws IOException {
-        String tmpFileId = UUID.randomUUID().toString();
-        File tmpFile = new File(uploadFileTmpDir, tmpFileId);
-        uploadedFile.transferTo(tmpFile);
-        return tmpFileId;
+    public String saveTmpFile(MultipartFile multipartFile) throws IOException {
+        String uploadTempFileId = UUID.randomUUID().toString();
+        File uploadTmpFile = new File(uploadFileTmpDir, uploadTempFileId);
+        multipartFile.transferTo(uploadTmpFile);
+        return uploadTempFileId;
     }
 
 }

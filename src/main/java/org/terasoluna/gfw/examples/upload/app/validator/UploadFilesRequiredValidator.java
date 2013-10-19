@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.upload.app;
+package org.terasoluna.gfw.examples.upload.app.validator;
 
 import java.util.Collection;
 
@@ -6,6 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.StringUtils;
+import org.terasoluna.gfw.examples.upload.app.FileUploadForm;
 
 public class UploadFilesRequiredValidator implements
         ConstraintValidator<UploadFilesRequired, Collection<FileUploadForm>> {

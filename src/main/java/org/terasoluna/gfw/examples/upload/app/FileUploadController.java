@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.SingleFileUpload;
-import org.terasoluna.gfw.examples.upload.domain.service.UploadService;
+import org.terasoluna.gfw.examples.upload.domain.service.DirectUploadService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
@@ -25,10 +25,7 @@ import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 public class FileUploadController {
 
     @Inject
-    private UploadHelper uploadHelper;
-
-    @Inject
-    private UploadService uploadService;
+    private DirectUploadService directUploadService;
 
     @ModelAttribute
     public FileUploadForm setupFileUploadForm() {
@@ -51,12 +48,10 @@ public class FileUploadController {
             return "upload/uploadFile";
         }
 
-        // save tmp file.
-        MultipartFile uploadedFile = form.getFile();
-        String tmpFileId = uploadHelper.saveTmpFile(uploadedFile);
-
         // save file.
-        uploadService.saveFile(tmpFileId, uploadedFile.getOriginalFilename(), form.getDescription());
+        MultipartFile multipartFile = form.getFile();
+        directUploadService.saveFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename(),
+                form.getDescription());
 
         // set result message.
         redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.xx.fw.0001"));

@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.upload.app;
+package org.terasoluna.gfw.examples.upload.app.validator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,9 +11,11 @@ import javax.validation.Payload;
 
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UploadFileRequiredValidator.class)
-public @interface UploadFileRequired {
-    String message() default "{org.terasoluna.examples.upload.app.UploadFileRequired}";
+@Constraint(validatedBy = UploadFileAllowableExtensionValidator.class)
+public @interface UploadFileAllowableExtension {
+    String message() default "{org.terasoluna.examples.upload.app.UploadFileAllowableExtension}";
+
+    String[] value() default {};
 
     Class<?>[] groups() default {};
 
@@ -23,7 +25,7 @@ public @interface UploadFileRequired {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
-        UploadFileRequired[] value();
+        UploadFileAllowableExtension[] value();
     }
 
 }
