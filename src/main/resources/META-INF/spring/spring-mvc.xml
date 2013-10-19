@@ -22,7 +22,6 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     <mvc:default-servlet-handler />
-    <context:component-scan base-package="xxxxxx.yyyyyy.zzzzzz.app" />
     <context:component-scan base-package=" org.terasoluna.gfw.examples.*.app" />
     <mvc:resources
         mapping="/resources/**"
