@@ -30,11 +30,11 @@
         cache-period="#{60 * 60}" />
     <mvc:resources
         mapping="/download/tmp/**"
-        location="${app.upload.tmpDir}"
+        location="file:${app.upload.tmpDir}"
         cache-period="#{60 * 60}" />
     <mvc:resources
         mapping="/download/**"
-        location="${app.upload.saveDir}"
+        location="file:${app.upload.saveDir}"
         cache-period="#{60 * 60}" />
     <mvc:interceptors>
         <mvc:interceptor>
