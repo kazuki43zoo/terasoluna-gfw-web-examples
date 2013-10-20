@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DirectUploadService {
 
-    UploadFileInfo saveFile(InputStream uploadFileInputStream, String fileName, String description);
+    UploadFileInfo saveFile(InputStream inputStream, String fileName, String description);
 
     UploadFileInfo saveFile(DirectUploadFileInfo directUploadFileInfo);
 

@@ -26,11 +26,11 @@ public class DirectUploadServiceImpl implements DirectUploadService {
     private UploadFileIdGenerator uploadFileIdGenerator;
 
     @Override
-    public UploadFileInfo saveFile(InputStream uploadFileInputStream, String fileName, String description) {
+    public UploadFileInfo saveFile(InputStream inputStream, String fileName, String description) {
         String fileId = uploadFileIdGenerator.generate();
         File uploadFile = new File(uploadConfig.getUploadSaveDir(), fileId);
         try {
-            FileUtils.copyInputStreamToFile(uploadFileInputStream, uploadFile);
+            FileUtils.copyInputStreamToFile(inputStream, uploadFile);
         } catch (IOException e) {
             throw new SystemException("e.xx.fw.9003", e);
         }
