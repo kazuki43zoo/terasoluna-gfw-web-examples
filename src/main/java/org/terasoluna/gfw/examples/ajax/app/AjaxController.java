@@ -1,13 +1,10 @@
 package org.terasoluna.gfw.examples.ajax.app;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 
 import org.springframework.http.HttpEntity;
