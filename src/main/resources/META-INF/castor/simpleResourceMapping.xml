@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<mapping>
+    <class name="org.terasoluna.gfw.examples.ajax.app.SimpleResource">
+        <map-to xml="SimpleResource" />
+        <field
+            name="a"
+            type="string">
+            <bind-xml
+                name="a"
+                node="element" />
+        </field>
+        <field
+            name="c"
+            type="string">
+            <bind-xml
+                name="c"
+                node="element" />
+        </field>
+    </class>
+</mapping>

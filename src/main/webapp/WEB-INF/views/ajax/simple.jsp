@@ -2,20 +2,15 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />
-<title>Search Screen</title>
+<title>Ajax Simple Screen</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vender/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 	$.ajaxSetup({
 		type : "POST",
-		url : "${pageContext.request.contextPath}/ajax/simple?test",
-		dataType : "json",
+		dataType : "xml",
 		beforeSend : function(xhr) {
 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			xhr.setRequestHeader("Content-Type",
-					"application/json;charset=utf-8");
 		}
 	});
 	function toJson(form) {
@@ -26,18 +21,47 @@
 		return JSON.stringify(data);
 	}
 	function request() {
-		$.ajax({
+		$.ajax("${pageContext.request.contextPath}/ajax/simple?test", {
+			contentType : "application/json;charset=utf-8",
 			data : toJson($("#form"))
-		}).done(function(responseJson) {
-			console.log(responseJson);
+		}).done(function(response) {
+			console.log(response);
+		});
+	}
+	function requestXxe() {
+		$.ajax("${pageContext.request.contextPath}/ajax/xxe", {
+			data : $("#data").val(),
+			contentType : "application/xml;charset=utf-8",
+		}).done(function(response) {
+			console.log(response);
+		});
+	}
+	function requestXxes() {
+		$.ajax("${pageContext.request.contextPath}/ajax/xxes", {
+			contentType : "application/xml;charset=utf-8",
+			data : $("#data").val(),
+		}).done(function(response) {
+			console.log(response);
+		});
+	}
+	function requestXxeForSax() {
+		$.ajax("${pageContext.request.contextPath}/ajax/xxe?sax", {
+			contentType : "text/xml;charset=utf-8",
+			data : $("#data").val(),
+		}).done(function(response) {
+			console.log(response);
 		});
 	}
 </script>
 </head>
 <body>
     <form id="form">
-        <input name="a" value="b"> <input name="c" value="d">
+        <input name="a" value="b"> <input name="c" value="d"><br>
+        <textarea id="data" rows="10" cols="80"></textarea>
     </form>
     <button onclick="request()">Test</button>
+    <button onclick="requestXxe()">TestXxe</button>
+    <button onclick="requestXxes()">TestXxes</button>
+    <button onclick="requestXxeForSax()">TestXxeForSax</button>
 </body>
 </html>
