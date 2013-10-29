@@ -25,7 +25,7 @@
             <form:form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search"
                 method="get" modelAttribute="searchForm">
                 <form:label path="title">Title</form:label> : <form:input path="title" />
-                <span>(Under 30 Chars)</span>
+                <span>(30 characters or less)</span>
                 <form:errors path="title" />
                 <br>
                 <form:label path="publishedDate">Published Date</form:label> : <form:input path="publishedDate" />

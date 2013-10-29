@@ -15,7 +15,7 @@ Examples of TERASOLUNA Global Framework for web
 * **Pagination** : see the 'org.terasoluna.gfw.examples.pagination' package.
  - Using Pagination search of Spring-Data-JAP.
  - Using the Pagination Tag of common library in JSP.
- - How to change the max display count from screen.
+ - How to change the Maximum display number from screen.
  - and more ... (to be continued). 
  
 
