@@ -8,9 +8,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// bind event to size item.
 		$("#size").on("change", function() {
 			$("#paginationSearchForm").submit();
 		});
+		// remove csrf item.
 		$("input[name='_csrf']").remove();
 	});
 </script>
@@ -19,8 +21,11 @@
     <div id="wrapper">
         <%-- screen name --%>
         <h1>Article Search Screen</h1>
+
         <%-- global message area --%>
         <t:messagesPanel />
+
+        <%-- Search Form area --%>
         <div id="searchFormArea">
             <form:form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search"
                 method="get" modelAttribute="searchForm">
@@ -34,14 +39,11 @@
                 <br>
                 <form:button class="btn btn-primary">Search</form:button>
                     Maximum display number :
-                    <form:select path="size">
-                    <form:option value="">default</form:option>
-                    <form:option value="1">1</form:option>
-                    <form:option value="2">2</form:option>
-                    <form:option value="5">5</form:option>
-                </form:select>
+                    <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
             </form:form>
         </div>
+
+        <%-- Search Result area --%>
         <div id="searchResultArea">
             <c:if test="${not empty page && 0 < page.numberOfElements}">
                 <table class="table table-hover">

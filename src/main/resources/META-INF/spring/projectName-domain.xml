@@ -10,4 +10,19 @@
     <context:component-scan base-package="org.terasoluna.gfw.examples.*.domain" />
     <import resource="classpath:META-INF/spring/projectName-infra.xml"/>
     <tx:annotation-driven/>
+    <bean id="CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER" class="org.terasoluna.gfw.common.codelist.SimpleMapCodeList">
+        <property name="map">
+            <map>
+                <entry key="" value="default" />
+                <entry key="1" value="1" />
+                <entry key="2" value="2" />
+                <entry key="5" value="5" />
+                <entry key="10" value="10" />
+                <entry key="25" value="25" />
+                <entry key="50" value="50" />
+                <entry key="75" value="75" />
+                <entry key="100" value="100" />
+            </map>
+        </property>
+    </bean>
 </beans>

@@ -35,8 +35,7 @@ public class PaginationController {
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
-    public String search(@Validated SearchForm form, BindingResult bindingResult,
-            @PageableDefault(size = 10) Pageable pageable, Model model) {
+    public String search(@Validated SearchForm form, BindingResult bindingResult, Pageable pageable, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "pagination/search";
