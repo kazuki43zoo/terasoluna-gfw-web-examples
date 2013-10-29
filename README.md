@@ -11,3 +11,11 @@ Examples of TERASOLUNA Global Framework for web
  - Upload single file with in screen flow.
  - Download upload file with in screen flow.
  - Clean up temporary files by task scheduler.
+
+* **Pagination** : see the 'org.terasoluna.gfw.examples.pagination' package.
+ - Using Pagination search of Spring-Data-JAP.
+ - Using the Pagination Tag of common library in JSP.
+ - How to change the max display count from screen.
+ - and more ... (to be continued). 
+ 
+
