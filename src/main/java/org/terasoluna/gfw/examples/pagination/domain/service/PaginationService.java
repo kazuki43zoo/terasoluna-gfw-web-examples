@@ -8,6 +8,6 @@ import org.terasoluna.gfw.examples.pagination.domain.model.Article;
 
 public interface PaginationService {
 
-    Page<Article> findAllByCriteria(String title, Date publishedDate, Pageable pageable);
+    Page<Article> findPageByCriteria(String title, Date publishedDate, Pageable pageable);
 
 }

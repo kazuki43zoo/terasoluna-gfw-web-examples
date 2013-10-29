@@ -19,7 +19,7 @@ public class PaginationServiceImpl implements PaginationService {
     private ArticleRepository articleRepository;
 
     @Transactional(readOnly = true)
-    public Page<Article> findAllByCriteria(String title, Date publishedDate, Pageable pageable) {
+    public Page<Article> findPageByCriteria(String title, Date publishedDate, Pageable pageable) {
         if (publishedDate != null) {
             return articleRepository.findPageByTitleStartingWithAndPublishedDate(
                     QueryEscapeUtils.toLikeCondition(title), publishedDate, pageable);

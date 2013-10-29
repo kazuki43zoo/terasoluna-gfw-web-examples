@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,7 +40,7 @@ public class PaginationController {
             return "pagination/search";
         }
 
-        Page<Article> page = paginationService.findAllByCriteria(form.getTitle(), form.getPublishedDate(), pageable);
+        Page<Article> page = paginationService.findPageByCriteria(form.getTitle(), form.getPublishedDate(), pageable);
         model.addAttribute("page", page);
 
         if (page.getTotalPages() == 0) {
