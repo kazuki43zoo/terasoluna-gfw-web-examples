@@ -52,7 +52,7 @@ public class FileUploadController {
                 form.getDescription());
 
         // set result message.
-        redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.xx.fw.0001"));
+        redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.ex.up.0001"));
 
         // remove transaction token.
         txTokenContext.removeToken();

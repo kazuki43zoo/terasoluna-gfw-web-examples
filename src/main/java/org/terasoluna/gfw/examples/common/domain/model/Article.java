@@ -41,6 +41,14 @@ public class Article implements Serializable {
     @Column
     private String author;
 
+    public Long getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
+    }
+
     public String getTitle() {
         return title;
     }

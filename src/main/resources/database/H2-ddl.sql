@@ -4,9 +4,9 @@ CREATE TABLE t_article (
     title NVARCHAR(100) NOT NULL,
     overview NVARCHAR(1000) NOT NULL,
     content CLOB NOT NULL,
-    published_date DATE NOT NULL,
+    published_date DATE,
     author NVARCHAR(100) NOT NULL,
     recommended_star INT,
     CONSTRAINT pk_article PRIMARY KEY(article_id)
 );
-commit;
+COMMIT;

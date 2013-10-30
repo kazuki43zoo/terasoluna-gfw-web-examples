@@ -242,23 +242,26 @@ footer {
 }
 
 /* For pagination */
-#searchFormArea {
+.subArea {
 	margin-top: 30px;
 }
 
-#paginationSearchForm label {
-	width: 120px;
+#paginationSearchForm label,#sequencerCreateForm label {
+	width: 132px;
 }
 
-#paginationSearchForm button {
-	margin-left: 132px;
+.formButtonArea {
+	margin-left: 143px;
 }
-
-#searchResultArea {
-	margin-top: 30px;
-}
-
 
 #paginationArea {
-    text-align: center;
+	text-align: center;
+}
+
+#sequencerCreateForm #content {
+	height: 150px;
+}
+#sequencerCreateForm textarea,#sequencerCreateForm input {
+    width: 400px;
+    margin-bottom: 3px;
 }

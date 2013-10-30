@@ -11,7 +11,7 @@
         <h1>Transaction Token Error!</h1>
         <div class="error">
             <c:if test="${!empty exceptionCode}">[${f:h(exceptionCode)}]</c:if>
-            <spring:message code="e.xx.fw.7001" />
+            <spring:message code="e.ex.fw.7001" />
         </div>
     <br>
     <br>

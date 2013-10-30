@@ -23,5 +23,5 @@ INSERT INTO t_article (article_id,title,overview,content,published_date,author,r
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
     VALUES(90000012,'title12', 'overview5', 'content5', current_date, 'author5', 5);
     
-    
+COMMIT;
     

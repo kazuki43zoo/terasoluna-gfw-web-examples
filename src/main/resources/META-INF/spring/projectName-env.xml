@@ -54,8 +54,10 @@
             name="entityManagerFactory"
             ref="entityManagerFactory" />
     </bean>
-    <jdbc:embedded-database id="dataSource" type="H2">
+    <jdbc:initialize-database
+        data-source="dataSource"
+        ignore-failures="ALL">
         <jdbc:script location="classpath:database/${database}-ddl.sql" />
         <jdbc:script location="classpath:database/${database}-dml.sql" />
-    </jdbc:embedded-database>
+    </jdbc:initialize-database>
 </beans>

@@ -39,11 +39,11 @@
         <!-- Setting and Customization by project. -->
         <property name="exceptionMappings">
             <map>
-                <entry key="ResourceNotFoundException" value="e.xx.fw.5001" />
-                <entry key="BusinessException" value="e.xx.fw.8001" />
+                <entry key="ResourceNotFoundException" value="e.ex.fw.5001" />
+                <entry key="BusinessException" value="e.ex.fw.8001" />
             </map>
         </property>
-        <property name="defaultExceptionCode" value="e.xx.fw.9001" />
+        <property name="defaultExceptionCode" value="e.ex.fw.9001" />
     </bean>
 
     <!-- Exception Logger. -->

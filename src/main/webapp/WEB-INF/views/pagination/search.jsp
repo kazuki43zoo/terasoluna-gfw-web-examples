@@ -21,12 +21,10 @@
     <div id="wrapper">
         <%-- screen name --%>
         <h1>Article Search Screen</h1>
-
         <%-- global message area --%>
         <t:messagesPanel />
-
         <%-- Search Form area --%>
-        <div id="searchFormArea">
+        <div class="subArea">
             <form:form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search"
                 method="get" modelAttribute="searchForm">
                 <form:label path="title">Title</form:label> : <form:input path="title" />
@@ -37,14 +35,15 @@
                 <span>(yyyyMMdd)</span>
                 <form:errors path="publishedDate" />
                 <br>
-                <form:button class="btn btn-primary">Search</form:button>
+                <div class="formButtonArea">
+                    <form:button class="btn btn-primary">Search</form:button>
                     Maximum display number :
                     <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
+                </div>
             </form:form>
         </div>
-
         <%-- Search Result area --%>
-        <div id="searchResultArea">
+        <div class="subArea">
             <c:if test="${not empty page && 0 < page.numberOfElements}">
                 <table class="table table-hover">
                     <tr>
