@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
-import org.terasoluna.gfw.examples.pagination.domain.model.Article;
+import org.terasoluna.gfw.examples.common.model.Article;
 import org.terasoluna.gfw.examples.pagination.domain.service.PaginationService;
 
 @RequestMapping("pagination")

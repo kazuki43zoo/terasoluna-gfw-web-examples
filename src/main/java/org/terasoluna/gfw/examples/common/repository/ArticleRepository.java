@@ -1,11 +1,11 @@
-package org.terasoluna.gfw.examples.pagination.domain.repository;
+package org.terasoluna.gfw.examples.common.repository;
 
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.terasoluna.gfw.examples.pagination.domain.model.Article;
+import org.terasoluna.gfw.examples.common.model.Article;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 

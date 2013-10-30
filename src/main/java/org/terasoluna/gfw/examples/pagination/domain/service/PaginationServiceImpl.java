@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.query.QueryEscapeUtils;
-import org.terasoluna.gfw.examples.pagination.domain.model.Article;
-import org.terasoluna.gfw.examples.pagination.domain.repository.ArticleRepository;
+import org.terasoluna.gfw.examples.common.model.Article;
+import org.terasoluna.gfw.examples.common.repository.ArticleRepository;
 
 @Service
 public class PaginationServiceImpl implements PaginationService {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.terasoluna.gfw.examples.pagination.domain.model.Article;
+import org.terasoluna.gfw.examples.common.model.Article;
 
 public interface PaginationService {
 
