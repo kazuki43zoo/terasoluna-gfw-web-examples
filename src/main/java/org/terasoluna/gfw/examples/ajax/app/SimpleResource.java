@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XmlRootElement(name = "SimpleResource")
 @XStreamAlias("SimpleResource")
-public class SimpleResource implements Serializable {
+public class SimpleResource implements Serializable  {
 
     private static final long serialVersionUID = 1L;
 

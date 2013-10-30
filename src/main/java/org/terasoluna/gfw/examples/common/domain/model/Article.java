@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.pagination.domain.model;
+package org.terasoluna.gfw.examples.common.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;

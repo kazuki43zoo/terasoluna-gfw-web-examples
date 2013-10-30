@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
-import org.terasoluna.gfw.examples.pagination.domain.model.Article;
+import org.terasoluna.gfw.examples.common.domain.model.Article;
 import org.terasoluna.gfw.examples.pagination.domain.service.PaginationService;
 
 @RequestMapping("pagination")
@@ -40,7 +40,7 @@ public class PaginationController {
             return "pagination/search";
         }
 
-        Page<Article> page = paginationService.findAllByCriteria(form.getTitle(), form.getPublishedDate(), pageable);
+        Page<Article> page = paginationService.findPageByCriteria(form.getTitle(), form.getPublishedDate(), pageable);
         model.addAttribute("page", page);
 
         if (page.getTotalPages() == 0) {
