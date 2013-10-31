@@ -1,7 +1,7 @@
 package org.terasoluna.gfw.examples.sequencer.domain.service;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +15,7 @@ public class SequencerServiceImpl implements SequencerService {
     @Inject
     ArticleRepository articleRepository;
 
-    @Inject
-    @Named("articleIdSequencer")
+    @Resource
     Sequencer<Long> articleIdSequencer;
 
     @Transactional
