@@ -90,19 +90,18 @@ public class FormFunctions {
 
         int i = 0;
         for (Object elementValue : collection) {
-            if (elementValue == null) {
-                continue;
-            }
-            String collectionPath = path + "[" + i + "]";
-            if (BeanUtils.isSimpleValueType(elementValue.getClass())) {
-                paths.add(collectionPath);
-            } else {
-                List<String> nestedPaths = getPaths(elementValue, collectionPath);
-                if (!nestedPaths.isEmpty()) {
-                    paths.addAll(nestedPaths);
+            if (elementValue != null) {
+                String collectionPath = path + "[" + i + "]";
+                if (BeanUtils.isSimpleValueType(elementValue.getClass())) {
+                    paths.add(collectionPath);
+                } else {
+                    List<String> nestedPaths = getPaths(elementValue, collectionPath);
+                    if (!nestedPaths.isEmpty()) {
+                        paths.addAll(nestedPaths);
+                    }
                 }
-                i++;
             }
+            i++;
         }
     }
 
