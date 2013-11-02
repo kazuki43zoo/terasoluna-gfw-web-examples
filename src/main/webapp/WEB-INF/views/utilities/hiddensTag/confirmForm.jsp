@@ -25,17 +25,17 @@
                 <br>
                 <label>Author</label> : ${f:h(authorForm.author)}
                 <br>
-                <form:label path="consent">consent</form:label> : <form:checkbox path="consent" />
+                <form:label path="consent">consent</form:label> : <form:checkbox path="consent" label="Yes" />
                 <form:errors path="consent" />
                 <br>
-                <div class="formButtonArea">
-                    <form:button name="redoAuthor" class="btn btn-primary">Back</form:button>
-                    <form:button class="btn btn-primary">Create</form:button>
-                </div>
                 <tform:hiddens modelAttribute="titleForm" />
                 <tform:hiddens modelAttribute="overviewForm" />
                 <tform:hiddens modelAttribute="contentForm" />
                 <tform:hiddens modelAttribute="authorForm" />
+                <div class="formButtonArea">
+                    <form:button name="redoAuthor" class="btn btn-primary">Back</form:button>
+                    <form:button class="btn btn-primary">Create</form:button>
+                </div>
             </form:form>
         </div>
     </div>

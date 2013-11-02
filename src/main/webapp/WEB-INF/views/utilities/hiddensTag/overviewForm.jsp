@@ -21,13 +21,13 @@
                 <span>(1,000 characters or less)</span>
                 <form:errors path="overview" />
                 <br>
+                <tform:hiddens modelAttribute="titleForm" />
+                <tform:hiddens modelAttribute="contentForm" />
+                <tform:hiddens modelAttribute="authorForm" />
                 <div class="formButtonArea">
                     <form:button name="redoTitle" class="btn btn-primary">Back</form:button>
                     <form:button name="moveContent" class="btn btn-primary">Next</form:button>
                 </div>
-                <tform:hiddens modelAttribute="titleForm" />
-                <tform:hiddens modelAttribute="contentForm" />
-                <tform:hiddens modelAttribute="authorForm" />
             </form:form>
         </div>
     </div>

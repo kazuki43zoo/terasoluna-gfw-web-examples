@@ -275,9 +275,14 @@ footer {
 	height: 150px;
 }
 
-#createForm textarea,#createForm input {
+#createForm textarea,#createForm input[type="text"] {
 	width: 400px;
 	margin-bottom: 3px;
+}
+
+input[type="checkbox"] + label {
+    margin-left: 5px;
+    width: auto;
 }
 
 button {
