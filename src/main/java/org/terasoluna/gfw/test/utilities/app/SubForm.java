@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.utilities.app;
+package org.terasoluna.gfw.test.utilities.app;
 
 import java.util.Date;
 
