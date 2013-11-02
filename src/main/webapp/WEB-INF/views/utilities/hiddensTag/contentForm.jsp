@@ -27,7 +27,7 @@
                 <tform:hiddens modelAttributes="titleForm, overviewForm, authorForm" />
                 <div class="formButtonArea">
                     <form:button name="redoOverview" class="btn btn-primary">Back</form:button>
-                    <form:button name="moveAuthor" class="btn btn-primary">Confirm</form:button>
+                    <form:button name="moveAuthor" class="btn btn-primary">Next</form:button>
                 </div>
             </form:form>
         </div>

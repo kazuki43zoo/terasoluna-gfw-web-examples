@@ -33,7 +33,6 @@
                     <form:button name="redo" class="btn btn-primary">Back</form:button>
                     <form:button class="btn btn-primary">Create</form:button>
                 </div>
-                <tform:hiddens modelAttribute="createForm" />
             </form:form>
         </div>
     </div>
