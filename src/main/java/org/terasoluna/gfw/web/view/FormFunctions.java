@@ -20,26 +20,34 @@ public class FormFunctions {
         if (form == null) {
             return Collections.emptyList();
         }
-        List<String> paths = getPaths(form, null);
+        List<String> paths = getPaths(null, form);
         return paths;
     }
 
-    private static List<String> getPaths(Object bean, String pathPrefix) {
+    private static List<String> getPaths(String basePath, Object bean) {
 
         BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);
         TypeDescriptor beanTypeDescriptor = TypeDescriptor.forObject(bean);
         List<String> paths = new ArrayList<String>();
 
-        if (beanTypeDescriptor.isCollection() || beanTypeDescriptor.isArray()) {
-            collectPathsOfCollection(paths, bean, pathPrefix, beanTypeDescriptor, beanWrapper);
-            return paths;
+        if (beanTypeDescriptor.isCollection()) {
+            collectPathsOfCollection(paths, basePath, (Collection<?>) bean);
+
+        } else if (beanTypeDescriptor.isArray()) {
+            Collection<?> collection = Arrays.asList(beanWrapper.convertIfNecessary(bean, Object[].class));
+            collectPathsOfCollection(paths, basePath, collection);
 
         } else if (beanTypeDescriptor.isMap()) {
-            collectPathsOfMap(paths, bean, pathPrefix);
-            return paths;
+            collectPathsOfMap(paths, basePath, (Map<?, ?>) bean);
+
+        } else {
+            collectPathsOfBeanProperties(paths, basePath, beanWrapper);
 
         }
+        return paths;
+    }
 
+    private static void collectPathsOfBeanProperties(List<String> paths, String basePath, BeanWrapper beanWrapper) {
         PropertyDescriptor[] beanPropertyDescriptors = beanWrapper.getPropertyDescriptors();
 
         for (PropertyDescriptor beanPropertyDescriptor : beanPropertyDescriptors) {
@@ -48,89 +56,68 @@ public class FormFunctions {
             if (!beanWrapper.isReadableProperty(propertyName) || !beanWrapper.isWritableProperty(propertyName)) {
                 continue;
             }
+
             Object value = beanWrapper.getPropertyValue(propertyName);
             if (value == null) {
                 continue;
             }
 
             String path = null;
-            if (pathPrefix == null) {
+            if (basePath == null) {
                 path = propertyName;
             } else {
-                path = pathPrefix + "." + propertyName;
+                path = basePath + "." + propertyName;
             }
 
             TypeDescriptor propertyTypeDescriptor = beanWrapper.getPropertyTypeDescriptor(propertyName);
-            if (propertyTypeDescriptor.isCollection() || propertyTypeDescriptor.isArray()) {
-                collectPathsOfCollection(paths, value, path, propertyTypeDescriptor, beanWrapper);
+            if (propertyTypeDescriptor.isCollection()) {
+                collectPathsOfCollection(paths, path, (Collection<?>) value);
+
+            } else if (propertyTypeDescriptor.isArray()) {
+                Collection<?> collection = Arrays.asList(beanWrapper.convertIfNecessary(value, Object[].class));
+                collectPathsOfCollection(paths, path, collection);
 
             } else if (propertyTypeDescriptor.isMap()) {
-                collectPathsOfMap(paths, value, path);
+                collectPathsOfMap(paths, path, (Map<?, ?>) value);
 
             } else {
-                collectPathsObject(paths, value, path);
+                collectPaths(paths, path, "", value);
 
             }
 
         }
-
-        return paths;
     }
 
-    private static void collectPathsOfCollection(List<String> paths, Object value, String path,
-            TypeDescriptor typeDescriptor, BeanWrapper beanWrapper) {
-
-        Collection<?> collection;
-        if (typeDescriptor.isCollection()) {
-            collection = (Collection<?>) value;
-        } else {
-            Object[] array = beanWrapper.convertIfNecessary(value, Object[].class);
-            collection = Arrays.asList(array);
-        }
-
-        int i = 0;
+    private static void collectPathsOfCollection(List<String> paths, String basePath, Collection<?> collection) {
+        int index = 0;
         for (Object elementValue : collection) {
             if (elementValue != null) {
-                String collectionPath = path + "[" + i + "]";
-                if (BeanUtils.isSimpleValueType(elementValue.getClass())) {
-                    paths.add(collectionPath);
-                } else {
-                    List<String> nestedPaths = getPaths(elementValue, collectionPath);
-                    if (!nestedPaths.isEmpty()) {
-                        paths.addAll(nestedPaths);
-                    }
-                }
+                String pathKey = "[" + index + "]";
+                collectPaths(paths, basePath, pathKey, elementValue);
             }
-            i++;
+            index++;
         }
     }
 
-    private static void collectPathsOfMap(List<String> paths, Object value, String path) {
-        Map<?, ?> map = (Map<?, ?>) value;
+    private static void collectPathsOfMap(List<String> paths, String basePath, Map<?, ?> map) {
         for (Entry<?, ?> entry : map.entrySet()) {
-            if (entry.getValue() == null) {
-                continue;
-            }
-            String mapPath = path + "[" + entry.getKey() + "]";
-            if (BeanUtils.isSimpleValueType(entry.getValue().getClass())) {
-                paths.add(mapPath);
-            } else {
-                List<String> nestedPaths = getPaths(entry.getValue(), mapPath);
-                if (!nestedPaths.isEmpty()) {
-                    paths.addAll(nestedPaths);
-                }
+            if (entry.getValue() != null) {
+                String pathKey = "[" + entry.getKey() + "]";
+                collectPaths(paths, basePath, pathKey, entry.getValue());
             }
         }
     }
 
-    private static void collectPathsObject(List<String> paths, Object value, String path) {
+    private static void collectPaths(List<String> paths, String basePath, String pathKey, Object value) {
+        String path = basePath + pathKey;
         if (BeanUtils.isSimpleValueType(value.getClass())) {
             paths.add(path);
         } else {
-            List<String> nestedPaths = getPaths(value, path);
+            List<String> nestedPaths = getPaths(path, value);
             if (!nestedPaths.isEmpty()) {
                 paths.addAll(nestedPaths);
             }
         }
     }
+
 }
