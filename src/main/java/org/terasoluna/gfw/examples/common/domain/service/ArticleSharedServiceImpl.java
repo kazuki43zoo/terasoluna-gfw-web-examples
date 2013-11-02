@@ -1,7 +1,7 @@
 package org.terasoluna.gfw.examples.common.domain.service;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,8 @@ public class ArticleSharedServiceImpl implements ArticleSharedService {
     @Inject
     ArticleRepository articleRepository;
 
-    @Resource
+    @Inject
+    @Named("articleIdSequencer")
     Sequencer<Long> articleIdSequencer;
 
     @Transactional
