@@ -107,15 +107,15 @@ public class FormFunctions {
 
     private static void collectPathsOfMap(List<String> paths, Object value, String path) {
         Map<?, ?> map = (Map<?, ?>) value;
-        for (Entry<?, ?> e : map.entrySet()) {
-            if (e.getValue() == null) {
+        for (Entry<?, ?> entry : map.entrySet()) {
+            if (entry.getValue() == null) {
                 continue;
             }
-            String mapPath = path + "[" + e.getKey() + "]";
-            if (BeanUtils.isSimpleValueType(e.getValue().getClass())) {
+            String mapPath = path + "[" + entry.getKey() + "]";
+            if (BeanUtils.isSimpleValueType(entry.getValue().getClass())) {
                 paths.add(mapPath);
             } else {
-                List<String> nestedPaths = getPaths(e.getValue(), mapPath);
+                List<String> nestedPaths = getPaths(entry.getValue(), mapPath);
                 if (!nestedPaths.isEmpty()) {
                     paths.addAll(nestedPaths);
                 }

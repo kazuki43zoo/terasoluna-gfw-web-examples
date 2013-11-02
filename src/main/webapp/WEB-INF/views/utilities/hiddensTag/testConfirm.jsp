@@ -93,7 +93,7 @@
                         </div>
                     </c:forEach>
                 </div>
-                <tform:hiddens modelAttribute="rootForm" />
+                <tform:hiddens modelAttributes="rootForm" />
                 <div class="formButtonArea">
                     <form:button name="redo" class="btn btn-primary">Back</form:button>
                 </div>

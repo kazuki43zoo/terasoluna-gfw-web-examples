@@ -35,10 +35,7 @@
                     <form:checkbox path="consent" label="Yes" />
                     <form:errors path="consent" />
                 </div>
-                <tform:hiddens modelAttribute="titleForm" />
-                <tform:hiddens modelAttribute="overviewForm" />
-                <tform:hiddens modelAttribute="contentForm" />
-                <tform:hiddens modelAttribute="authorForm" />
+                <tform:hiddens modelAttributes="titleForm, overviewForm, contentForm, authorForm" />
                 <div class="formButtonArea">
                     <form:button name="redoAuthor" class="btn btn-primary">Back</form:button>
                     <form:button class="btn btn-primary">Create</form:button>

@@ -24,9 +24,7 @@
                     <span>(10,000 characters or less)</span>
                     <form:errors path="content" />
                 </div>
-                <tform:hiddens modelAttribute="titleForm" />
-                <tform:hiddens modelAttribute="overviewForm" />
-                <tform:hiddens modelAttribute="authorForm" />
+                <tform:hiddens modelAttributes="titleForm, overviewForm, authorForm" />
                 <div class="formButtonArea">
                     <form:button name="redoOverview" class="btn btn-primary">Back</form:button>
                     <form:button name="moveAuthor" class="btn btn-primary">Confirm</form:button>

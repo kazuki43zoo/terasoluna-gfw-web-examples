@@ -24,9 +24,7 @@
                     <span>(100 characters or less)</span>
                     <form:errors path="author" />
                 </div>
-                <tform:hiddens modelAttribute="titleForm" />
-                <tform:hiddens modelAttribute="overviewForm" />
-                <tform:hiddens modelAttribute="contentForm" />
+                <tform:hiddens modelAttributes="titleForm, overviewForm, contentForm" />
                 <div class="formButtonArea">
                     <form:button name="redoContent" class="btn btn-primary">Back</form:button>
                     <form:button name="confirm" class="btn btn-primary">Confirm</form:button>
