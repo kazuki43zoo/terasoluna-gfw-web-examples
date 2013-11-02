@@ -17,17 +17,24 @@
         <div class="subArea">
             <form:form id="createForm" action="${pageContext.request.contextPath}/utilities/hiddensTag/create"
                 method="post" modelAttribute="confirmForm">
-                <label>Title</label> : ${f:h(titleForm.title)}
-                <br>
-                <label>Overview</label> : ${f:h(overviewForm.overview)}
-                <br>
-                <label>Content</label> : ${f:h(contentForm.content)}
-                <br>
-                <label>Author</label> : ${f:h(authorForm.author)}
-                <br>
-                <form:label path="consent">consent</form:label> : <form:checkbox path="consent" label="Yes" />
-                <form:errors path="consent" />
-                <br>
+                <div>
+                    <label>Title</label> : ${f:h(titleForm.title)}
+                </div>
+                <div>
+                    <label>Overview</label> : ${f:h(overviewForm.overview)}
+                </div>
+                <div>
+                    <label>Content</label> : ${f:h(contentForm.content)}
+                </div>
+                <div>
+                    <label>Author</label> : ${f:h(authorForm.author)}
+                </div>
+                <div>
+                    <form:label path="consent">consent</form:label>
+                    :
+                    <form:checkbox path="consent" label="Yes" />
+                    <form:errors path="consent" />
+                </div>
                 <tform:hiddens modelAttribute="titleForm" />
                 <tform:hiddens modelAttribute="overviewForm" />
                 <tform:hiddens modelAttribute="contentForm" />

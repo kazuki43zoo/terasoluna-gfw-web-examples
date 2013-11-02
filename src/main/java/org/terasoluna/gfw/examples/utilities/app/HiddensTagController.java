@@ -172,6 +172,24 @@ public class HiddensTagController {
         return "utilities/hiddensTag/complete";
     }
 
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public String testForm(RootForm rootForm) {
+        return "utilities/hiddensTag/testForm";
+    }
+
+    @RequestMapping(value = "test", method = RequestMethod.POST, params = "redo")
+    public String testRedo(RootForm rootForm) {
+        return "utilities/hiddensTag/testForm";
+    }
+
+    @RequestMapping(value = "test", method = RequestMethod.POST, params = "confirm")
+    public String testConfirm(@Validated RootForm rootForm, BindingResult result) {
+        if (result.hasErrors()) {
+            return testRedo(rootForm);
+        }
+        return "utilities/hiddensTag/testConfirm";
+    }
+
     private boolean hasError(BindingResult... results) {
         for (BindingResult result : results) {
             if (result.hasErrors()) {

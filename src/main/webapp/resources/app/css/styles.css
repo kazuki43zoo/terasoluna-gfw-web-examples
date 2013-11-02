@@ -280,11 +280,27 @@ footer {
 	margin-bottom: 3px;
 }
 
-input[type="checkbox"] + label {
-    margin-left: 5px;
-    width: auto;
+input[type="checkbox"]+label {
+	margin-left: 5px;
+	width: auto;
 }
 
 button {
-	margin-left: 5px!important;
+	margin-left: 5px !important;
+}
+
+h2{
+    background: graytext;
+    color: white;
+}
+h3 {
+	background: silver;
+}
+
+h4 {
+    background: highlight;
+}
+
+.checkboxLabel{
+	margin-right: 20px;
 }

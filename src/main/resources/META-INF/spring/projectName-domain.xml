@@ -24,4 +24,13 @@
             </map>
         </property>
     </bean>
+    <bean id="CL_HOBBY" class="org.terasoluna.gfw.common.codelist.SimpleMapCodeList">
+        <property name="map">
+            <map>
+                <entry key="01" value="Sport" />
+                <entry key="02" value="Movie" />
+                <entry key="03" value="Reading" />
+            </map>
+        </property>
+    </bean>
 </beans>

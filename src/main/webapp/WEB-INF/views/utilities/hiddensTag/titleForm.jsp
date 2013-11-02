@@ -17,10 +17,13 @@
         <div class="subArea">
             <form:form id="createForm" action="${pageContext.request.contextPath}/utilities/hiddensTag/create"
                 method="post" modelAttribute="titleForm">
-                <form:label path="title">Title</form:label> : <form:input path="title" />
-                <span>(100 characters or less)</span>
-                <form:errors path="title" />
-                <br>
+                <div>
+                    <form:label path="title">Title</form:label>
+                    :
+                    <form:input path="title" />
+                    <span>(100 characters or less)</span>
+                    <form:errors path="title" />
+                </div>
                 <tform:hiddens modelAttribute="overviewForm" />
                 <tform:hiddens modelAttribute="contentForm" />
                 <tform:hiddens modelAttribute="authorForm" />
