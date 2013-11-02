@@ -241,27 +241,45 @@ footer {
 	}
 }
 
-/* For pagination */
+.alert-error {
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+}
+
+.alert-error hr {
+	border-top-color: #e6c1c7;
+}
+
+.alert-error .error-link {
+	color: #953b39;
+}
+
 .subArea {
 	margin-top: 30px;
 }
 
-#paginationSearchForm label,#sequencerCreateForm label {
+#paginationSearchForm label,#createForm label {
 	width: 132px;
 }
 
 .formButtonArea {
-	margin-left: 143px;
+	margin-left: 138px;
 }
 
 #paginationArea {
 	text-align: center;
 }
 
-#sequencerCreateForm #content {
+#createForm #content {
 	height: 150px;
 }
-#sequencerCreateForm textarea,#sequencerCreateForm input {
-    width: 400px;
-    margin-bottom: 3px;
+
+#createForm textarea,#createForm input {
+	width: 400px;
+	margin-bottom: 3px;
+}
+
+button {
+	margin-left: 5px!important;
 }

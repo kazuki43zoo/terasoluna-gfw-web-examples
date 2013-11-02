@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.sequencer.domain.service;
+package org.terasoluna.gfw.examples.common.domain.service;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import org.terasoluna.gfw.examples.common.domain.model.Article;
 import org.terasoluna.gfw.examples.common.domain.repository.ArticleRepository;
 
 @Service
-public class SequencerServiceImpl implements SequencerService {
+public class ArticleSharedServiceImpl implements ArticleSharedService {
 
     @Inject
     ArticleRepository articleRepository;

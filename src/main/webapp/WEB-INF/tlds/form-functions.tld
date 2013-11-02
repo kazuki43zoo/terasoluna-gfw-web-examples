@@ -1,0 +1,27 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+
+    <description>reusable generic functions</description>
+    <display-name>TERASOLUNA EL Functions for Form</display-name>
+    <tlib-version>2.1</tlib-version>
+    <short-name>ff</short-name>
+    <uri>http://terasoluna.org/form-functions</uri>
+
+    <function>
+        <description>
+            <![CDATA[
+            ]]>
+        </description>
+        <name>paths</name>
+        <function-class>org.terasoluna.gfw.web.view.FormFunctions</function-class>
+        <function-signature>java.util.List getPaths(java.lang.Object)</function-signature>
+        <example>
+        <![CDATA[]]>
+        </example>
+    </function>
+
+</taglib>
+

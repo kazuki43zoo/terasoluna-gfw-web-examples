@@ -15,25 +15,27 @@
         <t:messagesPanel />
         <%-- Search Form area --%>
         <div class="subArea">
-            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create"
-                method="post" modelAttribute="createForm">
-                <form:label path="title">Title</form:label> : <form:input path="title" readonly="true" />
+            <form:form id="createForm" action="${pageContext.request.contextPath}/utilities/hiddensTag/create"
+                method="post" modelAttribute="confirmForm">
+                <label>Title</label> : ${f:h(titleForm.title)}
                 <br>
-                <form:label path="overview">Overview</form:label> : <form:textarea path="overview" readonly="true" />
+                <label>Overview</label> : ${f:h(overviewForm.overview)}
                 <br>
-                <form:label path="content">Content</form:label> : <form:textarea path="content" readonly="true" />
+                <label>Content</label> : ${f:h(contentForm.content)}
                 <br>
-                <form:label path="author">Author</form:label> : <form:input path="author" readonly="true" />
+                <label>Author</label> : ${f:h(authorForm.author)}
                 <br>
-                <form:label path="usingSequencer">Using Sequencer</form:label> : <form:checkbox path="usingSequencer"
-                    disabled="true" />
-                <form:hidden path="usingSequencer" />
+                <form:label path="consent">consent</form:label> : <form:checkbox path="consent" />
+                <form:errors path="consent" />
                 <br>
                 <div class="formButtonArea">
-                    <form:button name="redo" class="btn btn-primary">Back</form:button>
+                    <form:button name="redoAuthor" class="btn btn-primary">Back</form:button>
                     <form:button class="btn btn-primary">Create</form:button>
                 </div>
-                <tform:hiddens modelAttribute="createForm" />
+                <tform:hiddens modelAttribute="titleForm" />
+                <tform:hiddens modelAttribute="overviewForm" />
+                <tform:hiddens modelAttribute="contentForm" />
+                <tform:hiddens modelAttribute="authorForm" />
             </form:form>
         </div>
     </div>

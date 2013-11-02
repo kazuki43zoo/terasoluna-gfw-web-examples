@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import org.terasoluna.gfw.examples.common.domain.model.Article;
-import org.terasoluna.gfw.examples.sequencer.domain.service.SequencerService;
+import org.terasoluna.gfw.examples.common.domain.service.ArticleSharedService;
 
 @RequestMapping("sequencer")
 @Controller
 public class SequencerController {
 
     @Inject
-    SequencerService sequencerService;
+    ArticleSharedService articleSharedService;
 
     @Inject
     Mapper beanMapper;
@@ -56,7 +56,7 @@ public class SequencerController {
 
         Article inputtedArticle = beanMapper.map(form, Article.class);
 
-        Article createdArticle = sequencerService.createArticle(inputtedArticle, form.isUsingSequencer());
+        Article createdArticle = articleSharedService.createArticle(inputtedArticle, form.isUsingSequencer());
 
         redirectAttributes.addFlashAttribute(createdArticle);
         redirectAttributes.addFlashAttribute(ResultMessages.success()

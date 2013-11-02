@@ -1,8 +1,8 @@
-package org.terasoluna.gfw.examples.sequencer.domain.service;
+package org.terasoluna.gfw.examples.common.domain.service;
 
 import org.terasoluna.gfw.examples.common.domain.model.Article;
 
-public interface SequencerService {
+public interface ArticleSharedService {
 
     Article createArticle(Article article, boolean usingSequencer);
 

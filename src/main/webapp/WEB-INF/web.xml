@@ -83,6 +83,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <jsp-config>
+        <taglib>
+            <taglib-uri>http://terasoluna.org/form-functions</taglib-uri>
+            <taglib-location>/WEB-INF/tlds/form-functions.tld</taglib-location>
+        </taglib>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <el-ignored>false</el-ignored>

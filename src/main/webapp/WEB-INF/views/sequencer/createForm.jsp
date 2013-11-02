@@ -15,7 +15,7 @@
         <t:messagesPanel />
         <%-- Search Form area --%>
         <div class="subArea">
-            <form:form id="sequencerCreateForm" action="${pageContext.request.contextPath}/sequencer/create"
+            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create"
                 method="post" modelAttribute="createForm">
                 <form:label path="title">Title</form:label> : <form:input path="title" />
                 <span>(100 characters or less)</span>
