@@ -16,8 +16,8 @@ import org.terasoluna.gfw.examples.common.domain.service.ArticleSharedService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 
-@TransactionTokenCheck("utilities/hiddensTag")
-@RequestMapping("utilities/hiddensTag")
+@TransactionTokenCheck("utilities/hiddensTag/create")
+@RequestMapping("utilities/hiddensTag/create")
 @Controller
 public class HiddensTagController {
 
@@ -61,12 +61,12 @@ public class HiddensTagController {
     // ---
     // request handlers for title form.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String createForm() {
         return "utilities/hiddensTag/titleForm";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "moveOverview")
+    @RequestMapping(method = RequestMethod.POST, params = "moveOverview")
     public String createMoveOverviewForm(@Validated TitleForm titleForm, BindingResult result) {
         if (result.hasErrors()) {
             return createRedoTitle();
@@ -77,12 +77,12 @@ public class HiddensTagController {
     // ---
     // request handlers for overview form.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "redoTitle")
+    @RequestMapping(method = RequestMethod.POST, params = "redoTitle")
     public String createRedoTitle() {
         return "utilities/hiddensTag/titleForm";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "moveContent")
+    @RequestMapping(method = RequestMethod.POST, params = "moveContent")
     public String createMoveContentForm(@Validated OverviewForm overviewForm, BindingResult result) {
         if (result.hasErrors()) {
             return createRedoOverview();
@@ -93,12 +93,12 @@ public class HiddensTagController {
     // ---
     // request handlers for content form.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "redoOverview")
+    @RequestMapping(method = RequestMethod.POST, params = "redoOverview")
     public String createRedoOverview() {
         return "utilities/hiddensTag/overviewForm";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "moveAuthor")
+    @RequestMapping(method = RequestMethod.POST, params = "moveAuthor")
     public String createMoveAuthorForm(@Validated ContentForm overviewForm, BindingResult result) {
         if (result.hasErrors()) {
             return createRedoOverview();
@@ -109,13 +109,13 @@ public class HiddensTagController {
     // ---
     // request handlers for author form.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "redoContent")
+    @RequestMapping(method = RequestMethod.POST, params = "redoContent")
     public String createRedoContent() {
         return "utilities/hiddensTag/contentForm";
     }
 
-    @TransactionTokenCheck(value = "create", type = TransactionTokenType.BEGIN)
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "confirm")
+    @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
+    @RequestMapping(method = RequestMethod.POST, params = "confirm")
     public String createConfirm(@Validated AuthorForm authorForm, BindingResult result) {
         if (result.hasErrors()) {
             return createRedoAuthor();
@@ -126,13 +126,13 @@ public class HiddensTagController {
     // ---
     // request handlers for confirm form.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.POST, params = "redoAuthor")
+    @RequestMapping(method = RequestMethod.POST, params = "redoAuthor")
     public String createRedoAuthor() {
         return "utilities/hiddensTag/authorForm";
     }
 
-    @TransactionTokenCheck(value = "create")
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @TransactionTokenCheck
+    @RequestMapping(method = RequestMethod.POST)
     public String create(@Validated ConfirmForm confirmForm, BindingResult confirmFormResult,
             @Validated TitleForm titleForm, BindingResult titleFormResult, @Validated OverviewForm overviewForm,
             BindingResult overviewFormResult, @Validated ContentForm contentForm, BindingResult contentFormResult,
@@ -167,27 +167,9 @@ public class HiddensTagController {
     // ---
     // request handlers for complete.
     // ---
-    @RequestMapping(value = "create", method = RequestMethod.GET, params = "complete")
+    @RequestMapping(method = RequestMethod.GET, params = "complete")
     public String createComplete() {
         return "utilities/hiddensTag/complete";
-    }
-
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public String testForm(RootForm rootForm) {
-        return "utilities/hiddensTag/testForm";
-    }
-
-    @RequestMapping(value = "test", method = RequestMethod.POST, params = "redo")
-    public String testRedo(RootForm rootForm) {
-        return "utilities/hiddensTag/testForm";
-    }
-
-    @RequestMapping(value = "test", method = RequestMethod.POST, params = "confirm")
-    public String testConfirm(@Validated RootForm rootForm, BindingResult result) {
-        if (result.hasErrors()) {
-            return testRedo(rootForm);
-        }
-        return "utilities/hiddensTag/testConfirm";
     }
 
     private boolean hasError(BindingResult... results) {
