@@ -1,12 +1,15 @@
 package org.terasoluna.gfw.test.utilities.app;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class RootForm {
+public class RootForm implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String stringItem;
 

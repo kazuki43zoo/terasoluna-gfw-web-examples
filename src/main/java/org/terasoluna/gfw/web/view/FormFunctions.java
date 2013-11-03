@@ -14,8 +14,25 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.convert.TypeDescriptor;
 
+/**
+ * EL functions for form object.
+ */
 public class FormFunctions {
 
+    /**
+     * Fetch the "active path list" of specified form object.
+     * <p>
+     * <strong>[about "access path list"]</strong>
+     * <ul>
+     * <li>active path is access path of spring "form:xxx" tag.</li>
+     * <li>active path list is contains all not-null properties.</li>
+     * </ul>
+     * </p>
+     * 
+     * @param form
+     *            target form object for fetch.
+     * @return "active path list" of specified form object.
+     */
     public static List<String> getPaths(Object form) {
         if (form == null) {
             return Collections.emptyList();
@@ -24,21 +41,31 @@ public class FormFunctions {
         return paths;
     }
 
-    private static List<String> getPaths(String basePath, Object bean) {
+    /**
+     * Fetch the "active path list" of specified object(JavaBean or Simple value
+     * object or Collection or Map).
+     * 
+     * @param basePath
+     *            base path of specified object.(case of root object is null)
+     * @param object
+     *            target object for fetch.
+     * @return "active path list" of specified object.
+     */
+    private static List<String> getPaths(String basePath, Object object) {
 
-        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);
-        TypeDescriptor beanTypeDescriptor = TypeDescriptor.forObject(bean);
+        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(object);
+        TypeDescriptor beanTypeDescriptor = TypeDescriptor.forObject(object);
         List<String> paths = new ArrayList<String>();
 
         if (beanTypeDescriptor.isCollection()) {
-            collectPathsOfCollection(paths, basePath, (Collection<?>) bean);
+            collectPathsOfCollection(paths, basePath, (Collection<?>) object);
 
         } else if (beanTypeDescriptor.isArray()) {
-            Collection<?> collection = Arrays.asList(beanWrapper.convertIfNecessary(bean, Object[].class));
+            Collection<?> collection = Arrays.asList(beanWrapper.convertIfNecessary(object, Object[].class));
             collectPathsOfCollection(paths, basePath, collection);
 
         } else if (beanTypeDescriptor.isMap()) {
-            collectPathsOfMap(paths, basePath, (Map<?, ?>) bean);
+            collectPathsOfMap(paths, basePath, (Map<?, ?>) object);
 
         } else {
             collectPathsOfBeanProperties(paths, basePath, beanWrapper);
@@ -47,6 +74,16 @@ public class FormFunctions {
         return paths;
     }
 
+    /**
+     * collect "active path list" of specified bean properties.
+     * 
+     * @param paths
+     *            storing list of active path of in the bean.
+     * @param basePath
+     *            base path name of specified bean(bean wrapper).
+     * @param beanWrapper
+     *            wrapper object of specified bean.
+     */
     private static void collectPathsOfBeanProperties(List<String> paths, String basePath, BeanWrapper beanWrapper) {
         PropertyDescriptor[] beanPropertyDescriptors = beanWrapper.getPropertyDescriptors();
 
@@ -81,39 +118,72 @@ public class FormFunctions {
                 collectPathsOfMap(paths, path, (Map<?, ?>) value);
 
             } else {
-                collectPaths(paths, path, "", value);
+                collectPathsOfObject(paths, path, "", value);
 
             }
 
         }
     }
 
+    /**
+     * collect "active path list" of specified element into collection.
+     * 
+     * @param paths
+     *            storing list of active path of in the specified collection.
+     * @param basePath
+     *            base path name of specified collection.
+     * @param collection
+     *            collection object.
+     */
     private static void collectPathsOfCollection(List<String> paths, String basePath, Collection<?> collection) {
         int index = 0;
         for (Object elementValue : collection) {
             if (elementValue != null) {
                 String pathKey = "[" + index + "]";
-                collectPaths(paths, basePath, pathKey, elementValue);
+                collectPathsOfObject(paths, basePath, pathKey, elementValue);
             }
             index++;
         }
     }
 
+    /**
+     * collect "active path list" of specified entry into map.
+     * 
+     * @param paths
+     *            storing list of active path of in the specified map.
+     * @param basePath
+     *            base path name of specified map.
+     * @param map
+     *            map object.
+     */
     private static void collectPathsOfMap(List<String> paths, String basePath, Map<?, ?> map) {
         for (Entry<?, ?> entry : map.entrySet()) {
             if (entry.getValue() != null) {
                 String pathKey = "[" + entry.getKey() + "]";
-                collectPaths(paths, basePath, pathKey, entry.getValue());
+                collectPathsOfObject(paths, basePath, pathKey, entry.getValue());
             }
         }
     }
 
-    private static void collectPaths(List<String> paths, String basePath, String pathKey, Object value) {
+    /**
+     * collect "active path list" of specified object.
+     * 
+     * @param paths
+     *            storing list of active path of in the specified object.
+     * @param basePath
+     *            base path name of specified object.
+     * @param pathKey
+     *            key's value of in the base path.(collection of array is
+     *            "[index]". map is "[key]", simple value is "")
+     * @param object
+     *            target object.
+     */
+    private static void collectPathsOfObject(List<String> paths, String basePath, String pathKey, Object object) {
         String path = basePath + pathKey;
-        if (BeanUtils.isSimpleValueType(value.getClass())) {
+        if (BeanUtils.isSimpleValueType(object.getClass())) {
             paths.add(path);
         } else {
-            List<String> nestedPaths = getPaths(path, value);
+            List<String> nestedPaths = getPaths(path, object);
             if (!nestedPaths.isEmpty()) {
                 paths.addAll(nestedPaths);
             }
