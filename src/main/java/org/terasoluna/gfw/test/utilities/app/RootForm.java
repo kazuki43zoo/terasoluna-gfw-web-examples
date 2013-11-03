@@ -28,6 +28,10 @@ public class RootForm implements Serializable {
 
     private List<SubForm> nestedSubForms;
 
+    private List<Map<String, String>> simpleMapList;
+
+    private RowForm[] rowFormArray;
+
     public String getStringItem() {
         return stringItem;
     }
@@ -90,6 +94,22 @@ public class RootForm implements Serializable {
 
     public void setNestedSubFormMap(Map<String, SubForm> nestedSubFormMap) {
         this.nestedSubFormMap = nestedSubFormMap;
+    }
+
+    public List<Map<String, String>> getSimpleMapList() {
+        return simpleMapList;
+    }
+
+    public void setSimpleMapList(List<Map<String, String>> simpleMapList) {
+        this.simpleMapList = simpleMapList;
+    }
+
+    public RowForm[] getRowFormArray() {
+        return rowFormArray;
+    }
+
+    public void setRowFormArray(RowForm[] rowFormArray) {
+        this.rowFormArray = rowFormArray;
     }
 
 }
