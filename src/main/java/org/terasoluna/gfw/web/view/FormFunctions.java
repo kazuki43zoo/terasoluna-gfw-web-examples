@@ -13,11 +13,37 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.util.ClassUtils;
 
 /**
  * EL functions for form object.
  */
 public class FormFunctions {
+
+    /**
+     * status of present Joda-Time.
+     */
+    private static final boolean jodaTimePresent = ClassUtils.isPresent("org.joda.time.ReadableInstant",
+            FormFunctions.class.getClassLoader());
+
+    /**
+     * additional simple value types.
+     */
+    private static final List<Class<?>> additionalSimpleValueTypes;
+
+    /**
+     * initialize class.
+     */
+    static {
+        if (jodaTimePresent) {
+            ClassLoader classLoader = FormFunctions.class.getClassLoader();
+            Class<?> readableInstantClass = ClassUtils.resolveClassName("org.joda.time.ReadableInstant", classLoader);
+            Class<?> readablePartialClass = ClassUtils.resolveClassName("org.joda.time.ReadablePartial", classLoader);
+            additionalSimpleValueTypes = Arrays.asList(readableInstantClass, readablePartialClass);
+        } else {
+            additionalSimpleValueTypes = Collections.emptyList();
+        }
+    }
 
     /**
      * Fetch the "active path list" of specified form object.
@@ -180,7 +206,7 @@ public class FormFunctions {
      */
     private static void collectPathsOfObject(List<String> paths, String basePath, String pathKey, Object object) {
         String path = basePath + pathKey;
-        if (BeanUtils.isSimpleValueType(object.getClass())) {
+        if (isSimpleValueType(object.getClass())) {
             paths.add(path);
         } else {
             List<String> nestedPaths = getPaths(path, object);
@@ -188,6 +214,30 @@ public class FormFunctions {
                 paths.addAll(nestedPaths);
             }
         }
+    }
+
+    /**
+     * Check if the given type represents a "simple" value type: a primitive, a
+     * String or other CharSequence, a Number, a Date, a URI, a URL, a Locale or
+     * a Class. And if present,Joda Time object.
+     * 
+     * @param targetClass
+     *            the type to check
+     * @return whether the given type represents a "simple" value type
+     */
+    private static boolean isSimpleValueType(Class<?> targetClass) {
+        if (BeanUtils.isSimpleValueType(targetClass)) {
+            return true;
+        }
+        if (additionalSimpleValueTypes.isEmpty()) {
+            return false;
+        }
+        for (Class<?> customSimpleValueType : additionalSimpleValueTypes) {
+            if (customSimpleValueType.isAssignableFrom(targetClass)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
