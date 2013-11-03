@@ -15,20 +15,34 @@
         <t:messagesPanel />
         <%-- Search Form area --%>
         <div class="subArea">
-            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create"
-                method="post" modelAttribute="createForm">
-                <form:label path="title">Title</form:label> : <form:input path="title" readonly="true" />
-                <br>
-                <form:label path="overview">Overview</form:label> : <form:textarea path="overview" readonly="true" />
-                <br>
-                <form:label path="content">Content</form:label> : <form:textarea path="content" readonly="true" />
-                <br>
-                <form:label path="author">Author</form:label> : <form:input path="author" readonly="true" />
-                <br>
-                <form:label path="usingSequencer">Using Sequencer</form:label> : <form:checkbox path="usingSequencer"
-                    disabled="true" />
+            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create" method="post"
+                modelAttribute="createForm">
+                <div>
+                    <form:label path="title">Title</form:label>
+                    :
+                    <form:input path="title" readonly="true" />
+                </div>
+                <div>
+                    <form:label path="overview">Overview</form:label>
+                    :
+                    <form:textarea path="overview" readonly="true" />
+                </div>
+                <div>
+                    <form:label path="content">Content</form:label>
+                    :
+                    <form:textarea path="content" readonly="true" />
+                </div>
+                <div>
+                    <form:label path="author">Author</form:label>
+                    :
+                    <form:input path="author" readonly="true" />
+                </div>
+                <div>
+                    <form:label path="usingSequencer">Using Sequencer</form:label>
+                    :
+                    <form:checkbox path="usingSequencer" disabled="true" />
+                </div>
                 <form:hidden path="usingSequencer" />
-                <br>
                 <div class="formButtonArea">
                     <form:button name="redo" class="btn btn-primary">Back</form:button>
                     <form:button class="btn btn-primary">Create</form:button>

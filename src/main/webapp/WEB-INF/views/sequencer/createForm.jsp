@@ -15,28 +15,42 @@
         <t:messagesPanel />
         <%-- Search Form area --%>
         <div class="subArea">
-            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create"
-                method="post" modelAttribute="createForm">
-                <form:label path="title">Title</form:label> : <form:input path="title" />
-                <span>(100 characters or less)</span>
-                <form:errors path="title" />
-                <br>
-                <form:label path="overview">Overview</form:label> : <form:textarea path="overview"/>
-                <span>(1,000 characters or less)</span>
-                <form:errors path="overview" />
-                <br>
-                <form:label path="content">Content</form:label> : <form:textarea path="content" />
-                <span>(10,000 characters or less)</span>
-                <form:errors path="content" />
-                <br>
-                <form:label path="author">Author</form:label> : <form:input path="author" />
-                <span>(100 characters or less)</span>
-                <form:errors path="author" />
-                <br>
-                <form:label path="usingSequencer">Using Sequencer</form:label> : <form:checkbox path="usingSequencer"
-                    value="true" />
-                <form:errors path="usingSequencer" />
-                <br>
+            <form:form id="createForm" action="${pageContext.request.contextPath}/sequencer/create" method="post"
+                modelAttribute="createForm">
+                <div>
+                    <form:label path="title">Title</form:label>
+                    :
+                    <form:input path="title" />
+                    <span>(100 characters or less)</span>
+                    <form:errors path="title" />
+                </div>
+                <div>
+                    <form:label path="overview">Overview</form:label>
+                    :
+                    <form:textarea path="overview" />
+                    <span>(1,000 characters or less)</span>
+                    <form:errors path="overview" />
+                </div>
+                <div>
+                    <form:label path="content">Content</form:label>
+                    :
+                    <form:textarea path="content" />
+                    <span>(10,000 characters or less)</span>
+                    <form:errors path="content" />
+                </div>
+                <div>
+                    <form:label path="author">Author</form:label>
+                    :
+                    <form:input path="author" />
+                    <span>(100 characters or less)</span>
+                    <form:errors path="author" />
+                </div>
+                <div>
+                    <form:label path="usingSequencer">Using Sequencer</form:label>
+                    :
+                    <form:checkbox path="usingSequencer" value="true" />
+                    <form:errors path="usingSequencer" />
+                </div>
                 <div class="formButtonArea">
                     <form:button name="confirm" class="btn btn-primary">Confirm</form:button>
                 </div>

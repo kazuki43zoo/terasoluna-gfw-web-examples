@@ -26,21 +26,23 @@
                 </div>
                 <div>
                     <label>Date Item</label> :
-                    <fmt:formatDate value="${rootForm.dateItem}" pattern="yyyy/MM/dd" />
+                    <spring:bind path="dateItem">${f:h(status.value)}</spring:bind>
                 </div>
                 <div id="nestedSubForm">
                     <h3>Nested Sub Form</h3>
                     <c:set var="subForm" value="${rootForm.nestedSubForm}" />
-                    <div>
-                        <label>String Item</label> : ${f:h(subForm.stringItem)}
-                    </div>
-                    <div>
-                        <label>Integer Item</label> : ${f:h(subForm.integerItem)}
-                    </div>
-                    <div>
-                        <label>Date Item</label> :
-                        <fmt:formatDate value="${subForm.dateItem}" pattern="yyyy/MM/dd" />
-                    </div>
+                    <spring:nestedPath path="nestedSubForm">
+                        <div>
+                            <label>String Item</label> : ${f:h(subForm.stringItem)}
+                        </div>
+                        <div>
+                            <label>Integer Item</label> : ${f:h(subForm.integerItem)}
+                        </div>
+                        <div>
+                            <label>Date Item</label> :
+                            <spring:bind path="dateItem">${f:h(status.value)}</spring:bind>
+                        </div>
+                    </spring:nestedPath>
                 </div>
                 <div id="simpleMap">
                     <h3>Simple Map</h3>
@@ -55,16 +57,18 @@
                     <c:forEach var="subFormEntry" items="${rootForm.nestedSubFormMap}" varStatus="rowStatus">
                         <h4>Nested Sub Form ${rowStatus.count}</h4>
                         <c:set var="subForm" value="${subFormEntry.value}" />
-                        <div>
-                            <label>String Item</label> : ${f:h(subForm.stringItem)}
-                        </div>
-                        <div>
-                            <label>Integer Item</label> : ${f:h(subForm.integerItem)}
-                        </div>
-                        <div>
-                            <label>Date Item</label> :
-                            <fmt:formatDate value="${subForm.dateItem}" pattern="yyyy/MM/dd" />
-                        </div>
+                        <spring:nestedPath path="nestedSubFormMap[${subFormEntry.key}]">
+                            <div>
+                                <label>String Item</label> : ${f:h(subForm.stringItem)}
+                            </div>
+                            <div>
+                                <label>Integer Item</label> : ${f:h(subForm.integerItem)}
+                            </div>
+                            <div>
+                                <label>Date Item</label> :
+                                <spring:bind path="dateItem">${f:h(status.value)}</spring:bind>
+                            </div>
+                        </spring:nestedPath>
                     </c:forEach>
                 </div>
                 <div id="simpleList">
@@ -72,7 +76,7 @@
                     <div>
                         <form:label path="simpleList">Hobby</form:label>
                         :
-                        <c:forEach var="hobbyCode" items="${rootForm.simpleList}" varStatus="rowStatus">
+                        <c:forEach var="hobbyCode" items="${rootForm.simpleList}">
                             <span class="checkboxLabel">${f:h(CL_HOBBY[hobbyCode])}</span>
                         </c:forEach>
                     </div>
@@ -80,17 +84,19 @@
                 <div id="nestedSubFormList">
                     <h3>Nested Sub Form List</h3>
                     <c:forEach var="subForm" items="${rootForm.nestedSubForms}" varStatus="rowStatus">
-                        <h4>Nested Sub Form ${rowStatus.count}</h4>
-                        <div>
-                            <label>String Item</label> : ${f:h(subForm.stringItem)}
-                        </div>
-                        <div>
-                            <label>Integer Item</label> : ${f:h(subForm.integerItem)}
-                        </div>
-                        <div>
-                            <label>Date Item</label> :
-                            <fmt:formatDate value="${subForm.dateItem}" pattern="yyyy/MM/dd" />
-                        </div>
+                        <spring:nestedPath path="nestedSubForms[${rowStatus.index}]">
+                            <h4>Nested Sub Form ${rowStatus.count}</h4>
+                            <div>
+                                <label>String Item</label> : ${f:h(subForm.stringItem)}
+                            </div>
+                            <div>
+                                <label>Integer Item</label> : ${f:h(subForm.integerItem)}
+                            </div>
+                            <div>
+                                <label>Date Item</label> :
+                                <spring:bind path="dateItem">${f:h(status.value)}</spring:bind>
+                            </div>
+                        </spring:nestedPath>
                     </c:forEach>
                 </div>
                 <div id="simpleMapList">
@@ -127,15 +133,17 @@
                             <th>DateMidnight Item</th>
                         </tr>
                         <c:forEach var="rowForm" items="${rootForm.rowFormArray}" varStatus="rowStatus">
-                            <tr>
-                                <td>${f:h(rowStatus.count)}</td>
-                                <td>${f:h(rowForm.intItem)}</td>
-                                <td>${f:h(rowForm.longItem)}</td>
-                                <td>${f:h(rowForm.doubleItem)}</td>
-                                <td><joda:format value="${rowForm.dateTimeItem}" pattern="yyyy/MM/dd HH:mm:ss.SSS" /></td>
-                                <td><joda:format value="${rowForm.localTimeItem}" pattern="HH:mm" /></td>
-                                <td><joda:format value="${rowForm.dateMidnightItem}" pattern="yyyy/MM/dd" /></td>
-                            </tr>
+                            <spring:nestedPath path="rowFormArray[${rowStatus.index}]">
+                                <tr>
+                                    <td>${f:h(rowStatus.count)}</td>
+                                    <td>${f:h(rowForm.intItem)}</td>
+                                    <td>${f:h(rowForm.longItem)}</td>
+                                    <td>${f:h(rowForm.doubleItem)}</td>
+                                    <td><spring:bind path="dateTimeItem">${f:h(status.value)}</spring:bind></td>
+                                    <td><spring:bind path="localTimeItem">${f:h(status.value)}</spring:bind></td>
+                                    <td><spring:bind path="dateMidnightItem">${f:h(status.value)}</spring:bind></td>
+                                </tr>
+                            </spring:nestedPath>
                         </c:forEach>
                     </table>
                 </div>
