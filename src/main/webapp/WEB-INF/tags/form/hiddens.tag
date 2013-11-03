@@ -16,21 +16,27 @@
 <c:forEach var="modelAttribute" items="${modelAttributes}">
     <c:set var="modelAttribute" value="${fn:trim(modelAttribute)}" />
     <spring:eval var="object" expression="${modelAttribute}" />
+
     <c:choose>
+
         <c:when test="${object == null}">
             <%-- if object is null, do nothing. --%>
         </c:when>
+
         <c:when test="${ff:isCollection(object)}">
             <%-- if object is collection --%>
             <c:forEach var="elementObject" items="${object}" varStatus="rowStatus">
                 <c:choose>
+
                     <c:when test="${elementObject == null}">
                         <%-- if element object is null, do nothing. --%>
                     </c:when>
+
                     <c:when test="${ff:isSimpleValueType(elementObject)}">
                         <%-- if element object in collection is simple value --%>
                         <form:hidden path="${modelAttribute}[${rowStatus.index}]" />
                     </c:when>
+
                     <c:otherwise>
                         <%-- if element object in collection is java bean --%>
                         <spring:nestedPath path="${modelAttribute}[${rowStatus.index}]">
@@ -39,20 +45,25 @@
                             </c:forEach>
                         </spring:nestedPath>
                     </c:otherwise>
+
                 </c:choose>
             </c:forEach>
         </c:when>
+
         <c:when test="${ff:isMap(object)}">
             <%-- if object is map --%>
-            <c:forEach var="elementEntry" items="${object}" varStatus="rowStatus">
+            <c:forEach var="elementEntry" items="${object}">
                 <c:choose>
+
                     <c:when test="${elementEntry.value == null}">
                         <%-- if element object is null, do nothing. --%>
                     </c:when>
+
                     <c:when test="${ff:isSimpleValueType(elementEntry.value)}">
                         <%-- if element object in map is simple value --%>
                         <form:hidden path="${modelAttribute}[${elementEntry.key}]" />
                     </c:when>
+
                     <c:otherwise>
                         <%-- if element object in map is java bean --%>
                         <spring:nestedPath path="${modelAttribute}[${elementEntry.key}]">
@@ -61,13 +72,16 @@
                             </c:forEach>
                         </spring:nestedPath>
                     </c:otherwise>
+
                 </c:choose>
             </c:forEach>
         </c:when>
+
         <c:when test="${ff:isSimpleValueType(object)}">
             <%-- if object is simple value --%>
             <form:hidden path="${modelAttribute}" />
         </c:when>
+
         <c:otherwise>
             <%-- if object is java bean --%>
             <spring:nestedPath path="${modelAttribute}">
@@ -76,7 +90,9 @@
                 </c:forEach>
             </spring:nestedPath>
         </c:otherwise>
+
     </c:choose>
+
 </c:forEach>
 
 <%-- redo nestedPath.--%>
