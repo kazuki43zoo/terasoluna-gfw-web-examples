@@ -93,6 +93,52 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div id="simpleMapList">
+                    <h3>Simple Map List</h3>
+                    <table>
+                        <c:forEach var="map" items="${rootForm.simpleMapList}" varStatus="rowStatus">
+                            <c:if test="${rowStatus.count == 1}">
+                                <tr>
+                                    <th>No</th>
+                                    <c:forEach var="entry" items="${map}" varStatus="colStatus">
+                                        <th>Key${f:h(colStatus.count)}</th>
+                                    </c:forEach>
+                                </tr>
+                            </c:if>
+                            <tr>
+                                <td>${f:h(rowStatus.count)}</td>
+                                <c:forEach var="entry" items="${map}">
+                                    <td>${f:h(entry.value)}</td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                <div id="rowFormArray" class="inputTable">
+                    <h3>Row Form Array</h3>
+                    <table class="valueTable">
+                        <tr>
+                            <th>No</th>
+                            <th>Int Item</th>
+                            <th>Long Item</th>
+                            <th>Double Item</th>
+                            <th>Date Time Item</th>
+                            <th>Local Time Item</th>
+                            <th>DateMidnight Item</th>
+                        </tr>
+                        <c:forEach var="rowForm" items="${rootForm.rowFormArray}" varStatus="rowStatus">
+                            <tr>
+                                <td>${f:h(rowStatus.count)}</td>
+                                <td>${f:h(rowForm.intItem)}</td>
+                                <td>${f:h(rowForm.longItem)}</td>
+                                <td>${f:h(rowForm.doubleItem)}</td>
+                                <td><joda:format value="${rowForm.dateTimeItem}" pattern="yyyy/MM/dd HH:mm:ss.SSS" /></td>
+                                <td><joda:format value="${rowForm.localTimeItem}" pattern="HH:mm" /></td>
+                                <td><joda:format value="${rowForm.dateMidnightItem}" pattern="yyyy/MM/dd" /></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
                 <tform:hiddens modelAttributes="rootForm" />
                 <div class="formButtonArea">
                     <form:button name="redo" class="btn btn-primary">Back</form:button>

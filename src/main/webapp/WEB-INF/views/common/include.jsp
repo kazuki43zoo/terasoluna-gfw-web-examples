@@ -11,3 +11,6 @@
 
 <%@ taglib uri="http://terasoluna.org/form-functions" prefix="ff"%>
 <%@ taglib tagdir="/WEB-INF/tags/form" prefix="tform" %>
+
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+
