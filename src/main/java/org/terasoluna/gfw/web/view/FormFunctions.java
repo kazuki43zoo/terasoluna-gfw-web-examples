@@ -67,6 +67,29 @@ public class FormFunctions {
         return paths;
     }
 
+    public static boolean isCollection(Object object) {
+        if (object == null) {
+            return false;
+        }
+        TypeDescriptor beanTypeDescriptor = TypeDescriptor.forObject(object);
+        return beanTypeDescriptor.isCollection() || beanTypeDescriptor.isArray();
+    }
+
+    public static boolean isMap(Object object) {
+        if (object == null) {
+            return false;
+        }
+        TypeDescriptor beanTypeDescriptor = TypeDescriptor.forObject(object);
+        return beanTypeDescriptor.isMap();
+    }
+
+    public static boolean isSimpleValueType(Object object) {
+        if (object == null) {
+            return false;
+        }
+        return isSimpleValueType(object.getClass());
+    }
+
     /**
      * Fetch the "active path list" of specified object(JavaBean or Simple value
      * object or Collection or Map).
@@ -93,9 +116,11 @@ public class FormFunctions {
         } else if (beanTypeDescriptor.isMap()) {
             collectPathsOfMap(paths, basePath, (Map<?, ?>) object);
 
+        } else if (isSimpleValueType(beanWrapper.getWrappedClass())) {
+            paths.add(basePath);
+
         } else {
             collectPathsOfBeanProperties(paths, basePath, beanWrapper);
-
         }
         return paths;
     }
