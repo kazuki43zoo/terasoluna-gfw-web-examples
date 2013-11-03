@@ -232,8 +232,8 @@ public class FormFunctions {
         if (additionalSimpleValueTypes.isEmpty()) {
             return false;
         }
-        for (Class<?> customSimpleValueType : additionalSimpleValueTypes) {
-            if (customSimpleValueType.isAssignableFrom(targetClass)) {
+        for (Class<?> additionalSimpleValueType : additionalSimpleValueTypes) {
+            if (additionalSimpleValueType.isAssignableFrom(targetClass)) {
                 return true;
             }
         }
