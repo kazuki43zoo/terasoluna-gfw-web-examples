@@ -7,18 +7,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/bootstrap-3.0.0.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript">
-	$(function() {
-		// bind event to size item.
-		$("#size").on("change", function() {
-			$("#paginationSearchForm").submit();
-		});
-		// bind event to sort item.
-		$("#sort").on("change", function() {
-			$("#paginationSearchForm").submit();
-		});
-		// disabled csrf item.
-		$("input[name='_csrf']").attr("disabled", "disabled");
-	});
+    $(function() {
+        // bind event to size item.
+        $("#size").on("change", function() {
+            $("#paginationSearchForm").submit();
+        });
+        // bind event to sort item.
+        $("#sort").on("change", function() {
+            $("#paginationSearchForm").submit();
+        });
+        // disabled csrf item.
+        $("input[name='_csrf']").attr("disabled", "disabled");
+    });
 </script>
 </head>
 <body>

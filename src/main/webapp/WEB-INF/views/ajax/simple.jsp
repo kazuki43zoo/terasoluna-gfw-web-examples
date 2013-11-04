@@ -6,52 +6,52 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript">
-	$.ajaxSetup({
-		type : "POST",
-		dataType : "xml",
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		}
-	});
-	function toJson(form) {
-		var data = {};
-		$(form.serializeArray()).each(function(i, v) {
-			data[v.name] = v.value;
-		});
-		return JSON.stringify(data);
-	}
-	function request() {
-		$.ajax("${pageContext.request.contextPath}/ajax/simple?test", {
-			contentType : "application/json;charset=utf-8",
-			data : toJson($("#form"))
-		}).done(function(response) {
-			console.log(response);
-		});
-	}
-	function requestXxe() {
-		$.ajax("${pageContext.request.contextPath}/ajax/xxe", {
-			data : $("#data").val(),
-			contentType : "application/xml;charset=utf-8",
-		}).done(function(response) {
-			console.log(response);
-		});
-	}
-	function requestXxes() {
-		$.ajax("${pageContext.request.contextPath}/ajax/xxes", {
-			contentType : "application/xml;charset=utf-8",
-			data : $("#data").val(),
-		}).done(function(response) {
-			console.log(response);
-		});
-	}
-	function requestXxeForSax() {
-		$.ajax("${pageContext.request.contextPath}/ajax/xxe?sax", {
-			contentType : "text/xml;charset=utf-8",
-			data : $("#data").val(),
-		}).done(function(response) {
-			console.log(response);
-		});
-	}
+    $.ajaxSetup({
+        type : "POST",
+        dataType : "xml",
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+        }
+    });
+    function toJson(form) {
+        var data = {};
+        $(form.serializeArray()).each(function(i, v) {
+            data[v.name] = v.value;
+        });
+        return JSON.stringify(data);
+    }
+    function request() {
+        $.ajax("${pageContext.request.contextPath}/ajax/simple?test", {
+            contentType : "application/json;charset=utf-8",
+            data : toJson($("#form"))
+        }).done(function(response) {
+            console.log(response);
+        });
+    }
+    function requestXxe() {
+        $.ajax("${pageContext.request.contextPath}/ajax/xxe", {
+            data : $("#data").val(),
+            contentType : "application/xml;charset=utf-8",
+        }).done(function(response) {
+            console.log(response);
+        });
+    }
+    function requestXxes() {
+        $.ajax("${pageContext.request.contextPath}/ajax/xxes", {
+            contentType : "application/xml;charset=utf-8",
+            data : $("#data").val(),
+        }).done(function(response) {
+            console.log(response);
+        });
+    }
+    function requestXxeForSax() {
+        $.ajax("${pageContext.request.contextPath}/ajax/xxe?sax", {
+            contentType : "text/xml;charset=utf-8",
+            data : $("#data").val(),
+        }).done(function(response) {
+            console.log(response);
+        });
+    }
 </script>
 </head>
 <body>

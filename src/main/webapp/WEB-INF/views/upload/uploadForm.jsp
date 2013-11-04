@@ -22,9 +22,9 @@
                 <%-- if file already selected --%>
                 <c:when test="${ !empty fileUploadForm.fileName}">
                     Upload File : <form:button name="delete">Delete</form:button>
-                    <a target="${fileUploadForm.fileId}" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
-                        ${f:h(fileUploadForm.fileName)}
-                    </a>
+                    <a target="${fileUploadForm.fileId}"
+                        href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+                        ${f:h(fileUploadForm.fileName)} </a>
                     <form:hidden path="fileName" />
                     <form:hidden path="fileId" />
                     <br>
@@ -34,23 +34,25 @@
                     <form:label path="file">Upload File</form:label> : 
                     <form:input type="file" path="file" />
                     <form:button name="upload">Upload</form:button>
-                    <form:errors path="file" /><br>
+                    <form:errors path="file" />
+                    <br>
                 </c:otherwise>
             </c:choose>
             <form:label path="description">Description</form:label> : 
             <form:input path="description" />
-            <form:errors path="description" /><br>
+            <form:errors path="description" />
+            <br>
 
             <%-- submit buttons --%>
             <c:choose>
                 <c:when test="${ !empty fileUploadForm.fileName}">
-                   <form:button name="confirm">Confirm</form:button>
+                    <form:button name="confirm">Confirm</form:button>
                 </c:when>
                 <c:otherwise>
-                   <form:button name="confirmAndUpload">Confirm</form:button>
+                    <form:button name="confirmAndUpload">Confirm</form:button>
                 </c:otherwise>
             </c:choose>
-            
+
         </form:form>
     </div>
 </body>

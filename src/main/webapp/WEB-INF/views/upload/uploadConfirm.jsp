@@ -16,14 +16,16 @@
 
             <%-- upload confirm form --%>
             Upload File : 
-            <a target="${fileUploadForm.fileId}" href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
-                ${f:h(fileUploadForm.fileName)}
-            </a>
+            <a target="${fileUploadForm.fileId}"
+                href="${pageContext.request.contextPath}/download/tmp/${f:u(fileUploadForm.fileId)}">
+                ${f:h(fileUploadForm.fileName)} </a>
             <form:hidden path="fileName" />
-            <form:hidden path="fileId" /><br>
+            <form:hidden path="fileId" />
+            <br>
 
             Description : ${f:h(fileUploadForm.description)}
-            <form:hidden path="description" /><br>
+            <form:hidden path="description" />
+            <br>
 
             <%-- submit buttons --%>
             <form:button name="redo">Back</form:button>
