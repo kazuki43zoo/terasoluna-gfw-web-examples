@@ -16,6 +16,7 @@ Examples of TERASOLUNA Global Framework for web
  - Using Pagination search of Spring-Data-JAP.
  - Using the Pagination Tag of common library in JSP.
  - How to change the Maximum display number from screen.
+ - How to change the Sort condition from screen.
  - and more ... (to be continued). 
  
 
