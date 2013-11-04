@@ -14,6 +14,14 @@
         <%-- global message area --%>
         <t:messagesPanel />
         <%-- Search Form area --%>
+        <ul class="breadcrumb">
+            <li>Title</li>
+            <li>Overview</li>
+            <li>Content</li>
+            <li>Author</li>
+            <li>Confirm</li>
+            <li class="active">Complete</li>
+        </ul>
         <div class="subArea">
             <form action="${pageContext.request.contextPath}/utilities/hiddensTag/create" method="get">
                 <button name="form" class="btn btn-link">Continue to create ...</button>

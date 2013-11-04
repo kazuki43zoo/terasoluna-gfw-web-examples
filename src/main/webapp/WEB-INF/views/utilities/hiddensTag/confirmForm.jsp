@@ -17,6 +17,14 @@
         <div class="subArea">
             <form:form id="createForm" action="${pageContext.request.contextPath}/utilities/hiddensTag/create"
                 method="post" modelAttribute="confirmForm">
+                <ul class="breadcrumb">
+                    <li><form:button class="btn-link" name="redoTitle">Title</form:button></li>
+                    <li><form:button class="btn-link" name="redoOverview">Overview</form:button></li>
+                    <li><form:button class="btn-link" name="redoContent">Content</form:button></li>
+                    <li><form:button class="btn-link" name="redoAuthor">Author</form:button></li>
+                    <li class="active">Confirm</li>
+                    <li class="after">Complete</li>
+                </ul>
                 <div>
                     <label>Title</label> : ${f:h(titleForm.title)}
                 </div>
@@ -30,7 +38,7 @@
                     <label>Author</label> : ${f:h(authorForm.author)}
                 </div>
                 <div>
-                    <form:label path="consent">consent</form:label>
+                    <form:label path="consent">Consent</form:label>
                     :
                     <form:checkbox path="consent" label="Yes" />
                     <form:errors path="consent" />

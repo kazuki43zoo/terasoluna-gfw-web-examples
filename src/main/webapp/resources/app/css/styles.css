@@ -309,3 +309,18 @@ h4 {
 .checkboxLabel {
 	margin-right: 20px;
 }
+
+.breadcrumb>.active {
+	color: black !important;
+	font: bold;
+	font-size: larger;
+}
+
+.breadcrumb>.after {
+	color: #999999;
+}
+
+span[id$="errors"] {
+	padding-left: 10px;
+	color: red;
+}
