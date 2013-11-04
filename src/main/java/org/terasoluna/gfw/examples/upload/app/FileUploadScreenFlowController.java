@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.common.Messages;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.DeleteUploadFile;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.FileUpload;
 import org.terasoluna.gfw.examples.upload.app.FileUploadForm.SingleFileUpload;
@@ -218,7 +219,8 @@ public class FileUploadScreenFlowController {
         redirectAttributes.addFlashAttribute(uploadedFileInfo);
 
         // set result message.
-        redirectAttributes.addFlashAttribute(ResultMessages.success().add("i.ex.up.0001"));
+        redirectAttributes
+                .addFlashAttribute(ResultMessages.success().add(Messages.UP_FILE_UPLOADED.getResultMessage()));
 
         return "redirect:/upload/flow?complete";
     }

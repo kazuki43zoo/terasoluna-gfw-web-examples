@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.common.Messages;
 import org.terasoluna.gfw.examples.common.domain.model.Article;
 import org.terasoluna.gfw.examples.common.domain.service.ArticleSharedService;
 import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
@@ -145,7 +146,8 @@ public class HiddensTagController {
 
         // check validation result.
         if (hasError(titleFormResult, overviewFormResult, contentFormResult, authorFormResult)) {
-            redirectAttributes.addFlashAttribute(ResultMessages.error().add("e.ex.fw.7003"));
+            redirectAttributes.addFlashAttribute(ResultMessages.success().add(
+                    Messages.FW_INVALID_REQUEST.getResultMessage()));
             return "redirect:/utilities/hiddensTag/create?complete";
         }
 
@@ -160,6 +162,8 @@ public class HiddensTagController {
         redirectAttributes.addFlashAttribute(createdArticle);
         redirectAttributes.addFlashAttribute(ResultMessages.success()
                 .add("i.ex.ut.0001", createdArticle.getArticleId()));
+        redirectAttributes.addFlashAttribute(ResultMessages.success().add(
+                Messages.UT_ARTICLE_CREATED.getResultMessage(createdArticle.getArticleId())));
 
         return "redirect:/utilities/hiddensTag/create?complete";
     }

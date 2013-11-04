@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.common.Messages;
 import org.terasoluna.gfw.examples.common.domain.model.Article;
 import org.terasoluna.gfw.examples.common.domain.service.ArticleSharedService;
 
@@ -59,8 +60,8 @@ public class SequencerController {
         Article createdArticle = articleSharedService.createArticle(inputtedArticle, form.isUsingSequencer());
 
         redirectAttributes.addFlashAttribute(createdArticle);
-        redirectAttributes.addFlashAttribute(ResultMessages.success()
-                .add("i.ex.se.0001", createdArticle.getArticleId()));
+        redirectAttributes.addFlashAttribute(ResultMessages.success().add(
+                Messages.SE_ARTICLE_CREATED.getResultMessage(createdArticle.getArticleId(), "hoge")));
 
         return "redirect:/sequencer/create?complete";
     }

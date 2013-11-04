@@ -11,8 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.examples.common.Messages;
 import org.terasoluna.gfw.examples.common.domain.model.Article;
 import org.terasoluna.gfw.examples.pagination.domain.service.PaginationService;
 
@@ -44,7 +44,7 @@ public class PaginationController {
         model.addAttribute("page", page);
 
         if (page.getTotalPages() == 0) {
-            model.addAttribute(ResultMessages.info().add(ResultMessage.fromText("Data not found.")));
+            model.addAttribute(ResultMessages.info().add(Messages.PA_DATE_NOT_FOUND.getResultMessage()));
         }
 
         return "pagination/search";
