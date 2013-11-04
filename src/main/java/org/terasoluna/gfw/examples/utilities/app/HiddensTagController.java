@@ -144,8 +144,8 @@ public class HiddensTagController {
             return "utilities/hiddensTag/confirmForm";
         }
 
-        // check validation result.
-        if (hasError(titleFormResult, overviewFormResult, contentFormResult, authorFormResult)) {
+        // check validation result of another form.
+        if (hasBindingErrors(titleFormResult, overviewFormResult, contentFormResult, authorFormResult)) {
             redirectAttributes.addFlashAttribute(ResultMessages.success().add(
                     Messages.FW_INVALID_REQUEST.getResultMessage()));
             return "redirect:/utilities/hiddensTag/create?complete";
@@ -153,15 +153,13 @@ public class HiddensTagController {
 
         // convert to domain object from form object.
         Article inputtedArticle = new Article();
-        mapBean(inputtedArticle, titleForm, overviewForm, contentForm, authorForm);
+        mapToBean(inputtedArticle, titleForm, overviewForm, contentForm, authorForm);
 
         // execute business logic.
         Article createdArticle = articleSharedService.createArticle(inputtedArticle, false);
 
         // create models for view.
         redirectAttributes.addFlashAttribute(createdArticle);
-        redirectAttributes.addFlashAttribute(ResultMessages.success()
-                .add("i.ex.ut.0001", createdArticle.getArticleId()));
         redirectAttributes.addFlashAttribute(ResultMessages.success().add(
                 Messages.UT_ARTICLE_CREATED.getResultMessage(createdArticle.getArticleId())));
 
@@ -176,18 +174,18 @@ public class HiddensTagController {
         return "utilities/hiddensTag/complete";
     }
 
-    private boolean hasError(BindingResult... results) {
-        for (BindingResult result : results) {
-            if (result.hasErrors()) {
+    private boolean hasBindingErrors(BindingResult... bindingResults) {
+        for (BindingResult bindingResult : bindingResults) {
+            if (bindingResult.hasErrors()) {
                 return true;
             }
         }
         return false;
     }
 
-    private void mapBean(Object destination, Object... sources) {
-        for (Object source : sources) {
-            beanMapper.map(source, destination);
+    private void mapToBean(Object destinationBean, Object... sourceBeans) {
+        for (Object sourceBean : sourceBeans) {
+            beanMapper.map(sourceBean, destinationBean);
         }
     }
 

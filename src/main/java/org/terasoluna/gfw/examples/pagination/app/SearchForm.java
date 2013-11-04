@@ -8,6 +8,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.terasoluna.gfw.common.codelist.ExistInCodeList;
 
 public class SearchForm implements Serializable {
 
@@ -21,7 +22,11 @@ public class SearchForm implements Serializable {
     @DateTimeFormat(pattern = "yyyyMMdd")
     private Date publishedDate;
 
+    @ExistInCodeList(codeListId = "CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER")
     private String size;
+
+    @ExistInCodeList(codeListId = "CL_ARTICLE_SEARCH_DEFAULT_SORT")
+    private String sort;
 
     public String getTitle() {
         return title;
@@ -45,6 +50,14 @@ public class SearchForm implements Serializable {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 
 }

@@ -73,7 +73,7 @@
         <level value="debug" />
     </logger>
 
-    <root level="debug">
+    <root level="warn">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="APPLICATION_LOG_FILE" />
     </root>

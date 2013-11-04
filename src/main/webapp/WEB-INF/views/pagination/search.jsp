@@ -12,8 +12,12 @@
 		$("#size").on("change", function() {
 			$("#paginationSearchForm").submit();
 		});
-		// remove csrf item.
-		$("input[name='_csrf']").remove();
+		// bind event to sort item.
+		$("#sort").on("change", function() {
+			$("#paginationSearchForm").submit();
+		});
+		// disabled csrf item.
+		$("input[name='_csrf']").attr("disabled", "disabled");
 	});
 </script>
 </head>
@@ -21,27 +25,44 @@
     <div id="wrapper">
         <%-- screen name --%>
         <h1>Article Search Screen</h1>
+
         <%-- global message area --%>
         <t:messagesPanel />
+
         <%-- Search Form area --%>
         <div class="subArea">
             <form:form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search"
                 method="get" modelAttribute="searchForm">
-                <form:label path="title">Title</form:label> : <form:input path="title" />
-                <span>(30 characters or less)</span>
-                <form:errors path="title" />
-                <br>
-                <form:label path="publishedDate">Published Date</form:label> : <form:input path="publishedDate" />
-                <span>(yyyyMMdd)</span>
-                <form:errors path="publishedDate" />
-                <br>
+                <div>
+                    <form:label path="title">Title</form:label>
+                    :
+                    <form:input path="title" />
+                    <span>(30 characters or less)</span>
+                    <form:errors path="title" />
+                </div>
+                <div>
+                    <form:label path="publishedDate">Published Date</form:label>
+                    :
+                    <form:input path="publishedDate" />
+                    <span>(yyyyMMdd)</span>
+                    <form:errors path="publishedDate" />
+                </div>
+                <div>
+                    <form:label path="size">Max display</form:label>
+                    :
+                    <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
+                </div>
+                <div>
+                    <form:label path="sort">Default sort</form:label>
+                    :
+                    <form:select path="sort" items="${CL_ARTICLE_SEARCH_DEFAULT_SORT}" />
+                </div>
                 <div class="formButtonArea">
                     <form:button class="btn btn-primary">Search</form:button>
-                    Maximum display number :
-                    <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
                 </div>
             </form:form>
         </div>
+
         <%-- Search Result area --%>
         <div class="subArea">
             <c:if test="${not empty page && 0 < page.numberOfElements}">

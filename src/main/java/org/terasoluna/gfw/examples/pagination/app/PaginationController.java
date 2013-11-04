@@ -37,6 +37,9 @@ public class PaginationController {
     public String search(@Validated SearchForm form, BindingResult bindingResult, Pageable pageable, Model model) {
 
         if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("size") || bindingResult.hasFieldErrors("sort")) {
+                model.addAttribute(ResultMessages.error().add(Messages.FW_INVALID_REQUEST.getResultMessage()));
+            }
             return "pagination/search";
         }
 
