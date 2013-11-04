@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:task="http://www.springframework.org/schema/task"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
-        >
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <context:component-scan base-package="org.terasoluna.gfw.examples.*.common" />
 
@@ -15,17 +13,14 @@
 
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-    <context:property-placeholder
-        location="classpath*:/META-INF/spring/*.properties" />
+    <context:property-placeholder location="classpath*:/META-INF/spring/*.properties" />
 
     <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-        <property name="mappingFiles"
-            value="classpath*:/META-INF/dozer/**/*-mapping.xml" />
+        <property name="mappingFiles" value="classpath*:/META-INF/dozer/**/*-mapping.xml" />
     </bean>
 
     <!-- Message -->
-    <bean id="messageSource"
-        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
                 <value>i18n/application-messages</value>
@@ -34,8 +29,7 @@
     </bean>
 
     <!-- Exception Code Resolver. -->
-    <bean id="exceptionCodeResolver"
-        class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
+    <bean id="exceptionCodeResolver" class="org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver">
         <!-- Setting and Customization by project. -->
         <property name="exceptionMappings">
             <map>
@@ -47,22 +41,20 @@
     </bean>
 
     <!-- Exception Logger. -->
-    <bean id="exceptionLogger"
-        class="org.terasoluna.gfw.common.exception.ExceptionLogger">
+    <bean id="exceptionLogger" class="org.terasoluna.gfw.common.exception.ExceptionLogger">
         <property name="exceptionCodeResolver" ref="exceptionCodeResolver" />
     </bean>
 
     <!-- Filter. -->
-    <bean id="exceptionLoggingFilter"
-        class="org.terasoluna.gfw.web.exception.ExceptionLoggingFilter" >
+    <bean id="exceptionLoggingFilter" class="org.terasoluna.gfw.web.exception.ExceptionLoggingFilter">
         <property name="exceptionLogger" ref="exceptionLogger" />
     </bean>
-    
+
     <task:scheduler id="fileCleanupTaskScheduler" />
     <task:scheduled-tasks scheduler="fileCleanupTaskScheduler">
-        <task:scheduled ref="uploadTmpFileCleaner" method="cleanup" cron="${app.upload.tmpFileCleaner.cron}"/>
+        <task:scheduled ref="uploadTmpFileCleaner" method="cleanup" cron="${app.upload.tmpFileCleaner.cron}" />
     </task:scheduled-tasks>
-    
+
     <bean id="uploadTmpFileCleaner" class="org.terasoluna.gfw.examples.upload.common.FileCleaner">
         <property name="targetDirectory" value="${app.upload.tmpDir}" />
     </bean>
