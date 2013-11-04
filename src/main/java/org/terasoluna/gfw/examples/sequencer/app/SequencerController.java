@@ -61,7 +61,7 @@ public class SequencerController {
 
         redirectAttributes.addFlashAttribute(createdArticle);
         redirectAttributes.addFlashAttribute(ResultMessages.success().add(
-                Messages.SE_ARTICLE_CREATED.getResultMessage(createdArticle.getArticleId(), "hoge")));
+                Messages.SE_ARTICLE_CREATED.getResultMessage(createdArticle.getArticleId())));
 
         return "redirect:/sequencer/create?complete";
     }
