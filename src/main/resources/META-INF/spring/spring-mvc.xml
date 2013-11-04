@@ -41,6 +41,8 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     <mvc:default-servlet-handler />
+    
+    <mvc:view-controller path="/" view-name="index" />
 
     <context:component-scan base-package="org.terasoluna.gfw.*.*.app" />
     <mvc:resources mapping="/resources/**" location="/resources/,classpath:META-INF/resources/"
