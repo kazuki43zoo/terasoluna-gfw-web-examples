@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface UploadService {
 
-    void deleteTmpFile(String uploadTmpFileId);
-
     UploadFileInfo saveFile(String uploadTmpFileId, String fileName, String description);
 
     UploadFileInfo saveFile(UploadFileInfo uploadTmpFileInfo);

@@ -52,9 +52,4 @@ public class UploadServiceImpl implements UploadService {
         return savedUploadFiles;
     }
 
-    public void deleteTmpFile(String uploadTmpFileId) {
-        File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
-        FileUtils.deleteQuietly(uploadTmpFile);
-    }
-
 }

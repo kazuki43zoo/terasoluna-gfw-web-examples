@@ -32,4 +32,9 @@ public class UploadHelper {
         return uploadTmpFileId;
     }
 
+    public void deleteTmpFile(String uploadTmpFileId) {
+        File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
+        FileUtils.deleteQuietly(uploadTmpFile);
+    }
+
 }

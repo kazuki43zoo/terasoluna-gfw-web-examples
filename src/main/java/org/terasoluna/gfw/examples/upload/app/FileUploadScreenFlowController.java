@@ -165,7 +165,7 @@ public class FileUploadScreenFlowController {
         }
 
         // delete tmp file.
-        uploadService.deleteTmpFile(form.getFileId());
+        uploadHelper.deleteTmpFile(form.getFileId());
 
         // cleanup tmp file information in form.
         form.setFileId(null);
