@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.terasoluna.gfw.common.exception.SystemException;
@@ -24,9 +25,9 @@ public class UploadHelper {
         String uploadTmpFileId = uploadFileIdGenerator.generate();
         File uploadTmpFile = new File(uploadConfig.getUploadTmpDir(), uploadTmpFileId);
         try {
-            multipartFile.transferTo(uploadTmpFile);
+            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), uploadTmpFile);
         } catch (IOException e) {
-            throw new SystemException("e.xx.fw.9003", e);
+            throw new SystemException("e.ex.fw.9003", e);
         }
         return uploadTmpFileId;
     }
