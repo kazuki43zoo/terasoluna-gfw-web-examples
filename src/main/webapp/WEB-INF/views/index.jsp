@@ -16,17 +16,17 @@
         <div>
             <h3>Upload</h3>
             <ul>
-                <li><a href="upload/single">File Upload -Single file-</a></li>
-                <li><a href="upload/multiple">File Upload -Multiple file-</a></li>
-                <li><a href="upload/flow">File Upload -With in Screen flow-</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload/single">File Upload -Single file-</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload/multiple">File Upload -Multiple file-</a></li>
+                <li><a href="${pageContext.request.contextPath}/upload/flow">File Upload -With in Screen flow-</a></li>
             </ul>
             <h3>Pagination</h3>
             <ul>
-                <li><a href="pagination/search?form">Pagination Search</a></li>
+                <li><a href="${pageContext.request.contextPath}/pagination/search?form">Pagination Search</a></li>
             </ul>
             <h3>FormHiddensTag(Prototype)</h3>
             <ul>
-                <li><a href="utilities/hiddensTag/create">Multiple Screen in use case</a></li>
+                <li><a href="${pageContext.request.contextPath}/utilities/hiddensTag/create">Multiple Screen in use case</a></li>
             </ul>
         </div>
 
@@ -36,7 +36,7 @@
         <div>
             <h3>FormHiddensTag(Prototype)</h3>
             <ul>
-                <li><a href="utilities/hiddensTag/test">Test Form</a></li>
+                <li><a href="${pageContext.request.contextPath}/utilities/hiddensTag/test">Test Form</a></li>
             </ul>
         </div>
 
