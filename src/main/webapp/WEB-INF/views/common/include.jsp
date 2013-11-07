@@ -1,5 +1,4 @@
 <%@ page session="false"%>
-<%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -10,7 +9,7 @@
 <%@ taglib uri="http://terasoluna.org/tags" prefix="t"%>
 
 <%@ taglib uri="http://terasoluna.org/form-functions" prefix="ff"%>
-<%@ taglib tagdir="/WEB-INF/tags/form" prefix="tform" %>
+<%@ taglib uri="http://terasoluna.org/terasoluna-form" prefix="tform"%>
 
 <%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 

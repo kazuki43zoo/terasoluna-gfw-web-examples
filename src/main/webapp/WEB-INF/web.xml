@@ -75,6 +75,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
         <multipart-config>
+        <location>/tmp</location>
         </multipart-config>
     </servlet>
     <servlet-mapping>
@@ -86,12 +87,17 @@
             <taglib-uri>http://terasoluna.org/form-functions</taglib-uri>
             <taglib-location>/WEB-INF/tlds/form-functions.tld</taglib-location>
         </taglib>
+        <taglib>
+            <taglib-uri>http://terasoluna.org/terasoluna-form</taglib-uri>
+            <taglib-location>/WEB-INF/tlds/terasoluna-form.tld</taglib-location>
+        </taglib>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <el-ignored>false</el-ignored>
             <page-encoding>UTF-8</page-encoding>
             <scripting-invalid>false</scripting-invalid>
             <include-prelude>/WEB-INF/views/common/include.jsp</include-prelude>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
         </jsp-property-group>
     </jsp-config>
     <error-page>
