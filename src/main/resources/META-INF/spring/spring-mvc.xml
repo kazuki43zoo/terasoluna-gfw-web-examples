@@ -41,7 +41,7 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     <mvc:default-servlet-handler />
-    
+
     <mvc:view-controller path="/" view-name="index" />
 
     <context:component-scan base-package="org.terasoluna.gfw.*.*.app" />
@@ -79,7 +79,11 @@
             <bean class="org.terasoluna.gfw.web.codelist.CodeListInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
-    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+    <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" 
+        /> -->
+    <bean id="multipartResolver" class="org.terasoluna.gfw.examples.upload.prototype.StandardServletMultipartResolverSupportedForWeblogic" />
+
+
     <!-- Settings View Resolver. -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
