@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UploadFileNotEmptyValidator.class)
 public @interface UploadFileNotEmpty {
-    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileNotEmpty}";
+    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileNotEmpty.message}";
 
     Class<?>[] groups() default {};
 

@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UploadFileAllowableExtensionValidator.class)
 public @interface UploadFileAllowableExtension {
-    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileAllowableExtension}";
+    String message() default "{org.terasoluna.examples.upload.app.validator.UploadFileAllowableExtension.message}";
 
     String[] value() default {};
 
