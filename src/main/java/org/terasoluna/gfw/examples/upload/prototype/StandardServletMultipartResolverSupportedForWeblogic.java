@@ -21,11 +21,15 @@ public class StandardServletMultipartResolverSupportedForWeblogic extends Standa
     public MultipartHttpServletRequest resolveMultipart(final HttpServletRequest request) throws MultipartException {
         return new StandardMultipartHttpServletRequest(request) {
             public Enumeration<String> getParameterNames() {
-                List<String> simpleParamaterNames = new ArrayList<String>();
+                Enumeration<String> parameterNames = request.getParameterNames();
+                if (parameterNames.hasMoreElements()) {
+                    return parameterNames;
+                }
+                List<String> parameterNameList = new ArrayList<String>();
                 try {
                     for (Part part : request.getParts()) {
                         if (request.getParameter(part.getName()) != null) {
-                            simpleParamaterNames.add(part.getName());
+                            parameterNameList.add(part.getName());
                         }
                     }
                 } catch (IOException e) {
@@ -33,9 +37,10 @@ public class StandardServletMultipartResolverSupportedForWeblogic extends Standa
                 } catch (ServletException e) {
                     throw new IllegalArgumentException(e);
                 }
-                return Collections.enumeration(simpleParamaterNames);
+                return Collections.enumeration(parameterNameList);
             }
 
         };
     }
+
 }
