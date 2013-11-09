@@ -28,7 +28,7 @@ public class StandardServletMultipartResolverSupportedForWeblogic extends Standa
                 List<String> parameterNameList = new ArrayList<String>();
                 try {
                     for (Part part : request.getParts()) {
-                        if (request.getParameter(part.getName()) != null) {
+                        if (part.getContentType() == null) {
                             parameterNameList.add(part.getName());
                         }
                     }
@@ -42,5 +42,4 @@ public class StandardServletMultipartResolverSupportedForWeblogic extends Standa
 
         };
     }
-
 }
