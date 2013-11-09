@@ -11,8 +11,7 @@
         <%-- screen name --%>
         <h1>File Upload Confirm Screen</h1>
 
-        <form:form action="${pageContext.request.contextPath}/upload/flow" method="post" enctype="multipart/form-data"
-            modelAttribute="fileUploadForm">
+        <form:form action="${pageContext.request.contextPath}/upload/flow" method="post" modelAttribute="fileUploadForm">
 
             <%-- upload confirm form --%>
             Upload File : 
