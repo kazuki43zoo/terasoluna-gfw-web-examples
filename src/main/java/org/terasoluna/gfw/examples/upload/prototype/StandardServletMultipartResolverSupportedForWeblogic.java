@@ -18,16 +18,16 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 public class StandardServletMultipartResolverSupportedForWeblogic extends StandardServletMultipartResolver {
 
     @Override
-    public MultipartHttpServletRequest resolveMultipart(final HttpServletRequest request) throws MultipartException {
+    public MultipartHttpServletRequest resolveMultipart(HttpServletRequest request) throws MultipartException {
         return new StandardMultipartHttpServletRequest(request) {
             public Enumeration<String> getParameterNames() {
-                Enumeration<String> parameterNames = request.getParameterNames();
+                Enumeration<String> parameterNames = super.getParameterNames();
                 if (parameterNames.hasMoreElements()) {
                     return parameterNames;
                 }
                 List<String> parameterNameList = new ArrayList<String>();
                 try {
-                    for (Part part : request.getParts()) {
+                    for (Part part : getParts()) {
                         if (part.getContentType() == null) {
                             parameterNameList.add(part.getName());
                         }
