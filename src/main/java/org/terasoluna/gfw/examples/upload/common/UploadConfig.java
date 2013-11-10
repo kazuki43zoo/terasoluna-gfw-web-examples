@@ -2,12 +2,13 @@ package org.terasoluna.gfw.examples.upload.common;
 
 import java.io.File;
 
-import org.springframework.beans.factory.InitializingBean;
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UploadConfig implements InitializingBean {
+public class UploadConfig {
 
     @Value("${app.upload.tmpDir}")
     private File uploadTmpDir;
@@ -31,25 +32,22 @@ public class UploadConfig implements InitializingBean {
         this.uploadSaveDir = uploadSaveDir;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (!uploadTmpDir.exists()) {
-            throw new IllegalArgumentException("Upload temporary dorectory is not exists. Temporary dorectory is '"
-                    + uploadTmpDir.getAbsolutePath() + "'.");
+    @PostConstruct
+    public void afterPropertiesSet() {
+        validateDirectory(uploadTmpDir, "temporary dorectory", "app.upload.tmpDir");
+        validateDirectory(uploadSaveDir, "save dorectory", "app.upload.saveDir");
+    }
+
+    private void validateDirectory(File direcotry, String logicalNameOfDirecotry, String propertyKey) {
+        if (!direcotry.exists()) {
+            throw new IllegalArgumentException("Upload " + logicalNameOfDirecotry + " is not exists. "
+                    + logicalNameOfDirecotry + " is '" + direcotry.getAbsolutePath() + "'.");
         }
-        if (!uploadTmpDir.isDirectory()) {
-            throw new IllegalArgumentException(
-                    "Property value('app.upload.tmpDir') is wrong(not direcotry). Please specify the existing directory path. Property value is '"
-                            + uploadTmpDir.getAbsolutePath() + "'.");
-        }
-        if (!uploadSaveDir.exists()) {
-            throw new IllegalArgumentException("Upload save dorectory is not exists. Save dorectory is '"
-                    + uploadSaveDir.getAbsolutePath() + "'.");
-        }
-        if (!uploadSaveDir.isDirectory()) {
-            throw new IllegalArgumentException(
-                    "Property value('app.upload.saveDir') is wrong(not direcotry). Please specify the existing directory path. Property value is '"
-                            + uploadSaveDir.getAbsolutePath() + "'.");
+        if (!direcotry.isDirectory()) {
+            throw new IllegalArgumentException("Property value('" + propertyKey
+                    + "') is wrong(not direcotry). Please specify the existing directory path. Property value is '"
+                    + direcotry.getAbsolutePath() + "'.");
         }
     }
+
 }
