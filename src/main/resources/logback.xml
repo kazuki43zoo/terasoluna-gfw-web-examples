@@ -60,6 +60,14 @@
         <level value="info" />
     </logger>
 
+    <logger name="org.springframework.transaction">
+        <level value="debug" />
+    </logger>
+
+    <logger name="org.springframework.orm.jpa">
+        <level value="debug" />
+    </logger>
+
     <logger name="org.hibernate.engine.transaction">
         <level value="debug" />
     </logger>

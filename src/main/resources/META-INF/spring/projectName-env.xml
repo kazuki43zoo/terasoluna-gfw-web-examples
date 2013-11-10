@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
-    <bean id="dateFactory" class="org.terasoluna.gfw.common.date.DefaultDateFactory" />
-    <bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${database.driverClassName}" />
-        <property name="url" value="${database.url}" />
-        <property name="username" value="${database.username}" />
-        <property name="password" value="${database.password}" />
-        <property name="defaultAutoCommit" value="false" />
-        <property name="maxActive" value="${cp.maxActive}" />
-        <property name="maxIdle" value="${cp.maxIdle}" />
-        <property name="minIdle" value="${cp.minIdle}" />
-        <property name="maxWait" value="${cp.maxWait}" />
-    </bean>
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-        <constructor-arg index="0" ref="realDataSource" />
-    </bean>
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
     <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
         <jdbc:script location="classpath:database/${database}-ddl.sql" />
         <jdbc:script location="classpath:database/${database}-dml.sql" />
     </jdbc:initialize-database>
+
+    <bean id="dateFactory" class="org.terasoluna.gfw.common.date.DefaultDateFactory" />
+
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg index="0" ref="realDataSource" />
+    </bean>
+
+    <beans profile="jta">
+
+        <jee:jndi-lookup jndi-name="jdbc/default" id="realDataSource" />
+
+        <tx:jta-transaction-manager />
+
+        <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory"
+            parent="AbstractEntityManagerFactory">
+            <property name="jtaDataSource" ref="dataSource" />
+            <property name="jpaPropertyMap">
+                <map merge="true">
+                    <entry key="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.${infra.app.server}JtaPlatform" />
+                </map>
+            </property>
+        </bean>
+
+    </beans>
+
+    <beans profile="default">
+
+        <bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${database.driverClassName}" />
+            <property name="url" value="${database.url}" />
+            <property name="username" value="${database.username}" />
+            <property name="password" value="${database.password}" />
+            <property name="defaultAutoCommit" value="false" />
+            <property name="maxActive" value="${cp.maxActive}" />
+            <property name="maxIdle" value="${cp.maxIdle}" />
+            <property name="minIdle" value="${cp.minIdle}" />
+            <property name="maxWait" value="${cp.maxWait}" />
+        </bean>
+
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="entityManagerFactory" />
+        </bean>
+
+        <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory"
+            parent="AbstractEntityManagerFactory">
+            <property name="dataSource" ref="dataSource" />
+        </bean>
+
+    </beans>
+
 </beans>
