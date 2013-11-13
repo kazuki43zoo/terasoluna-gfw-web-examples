@@ -72,7 +72,6 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
         <multipart-config>
-            <location>/tmp</location>
         </multipart-config>
     </servlet>
     <servlet-mapping>
