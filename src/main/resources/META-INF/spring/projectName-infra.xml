@@ -39,4 +39,8 @@
         <property name="sequenceClass" value="java.lang.Long" />
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
 </beans>
