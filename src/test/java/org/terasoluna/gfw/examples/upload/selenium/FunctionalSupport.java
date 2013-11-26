@@ -1,5 +1,9 @@
 package org.terasoluna.gfw.examples.upload.selenium;
 
+import javax.inject.Inject;
+
+import net.lightbody.bmp.proxy.ProxyServer;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,11 +23,20 @@ public abstract class FunctionalSupport extends ApplicationObjectSupport {
     @Rule
     public TestName testName = new TestName();
 
+    @Inject
+    protected ProxyServer proxyServer;
+
     static WebDriver webDriver;
 
     @BeforeClass
     public static void setUpClass() {
         System.out.println("setUpClass");
+    }
+
+    @Before
+    public void setUpProxyServer() {
+        proxyServer.newHar("localhost");
+        proxyServer.setCaptureHeaders(true);
     }
 
     @Before
