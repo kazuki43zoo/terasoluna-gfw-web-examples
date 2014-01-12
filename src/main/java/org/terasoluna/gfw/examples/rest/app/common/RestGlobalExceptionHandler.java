@@ -1,7 +1,5 @@
 package org.terasoluna.gfw.examples.rest.app.common;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import org.springframework.http.HttpHeaders;
@@ -9,9 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,25 +29,13 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Inject
     ExceptionCodeResolver exceptionCodeResolver;
 
-    private String messageCodeOfFieldError;
-
-    private String messageCodeOfObjectError;
-
-    public void setMessageCodeOfFieldError(String messageCodeOfFieldError) {
-        this.messageCodeOfFieldError = messageCodeOfFieldError;
-    }
-
-    public void setMessageCodeOfObjectError(String messageCodeOfObjectError) {
-        this.messageCodeOfObjectError = messageCodeOfObjectError;
-    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException ex,
             final HttpHeaders headers, final HttpStatus status,
             final WebRequest request) {
-        final RestError errorBody = createBindingError(ex.getBindingResult(),
-                request.getLocale());
+        final RestError errorBody = restErrorCreator.createBindingError(
+                ex.getBindingResult(), request.getLocale());
         return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
 
@@ -60,7 +43,7 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleBindException(
             final BindException ex, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
-        final RestError errorBody = createBindingError(ex.getBindingResult(),
+        final RestError errorBody = restErrorCreator.createBindingError(ex,
                 request.getLocale());
         return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
@@ -86,11 +69,13 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(
             final Exception ex, final Object body, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
-        Object errorBody = body;
-        if (errorBody == null) {
+        final Object errorBody;
+        if (body == null) {
             final String code = exceptionCodeResolver.resolveExceptionCode(ex);
             errorBody = restErrorCreator.createRestError(code,
                     request.getLocale());
+        } else {
+            errorBody = body;
         }
         return new ResponseEntity<Object>(errorBody, headers, status);
     }
@@ -112,8 +97,8 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(SystemException.class)
     public ResponseEntity<Object> handleSystemException(
             final SystemException ex, final WebRequest request) {
-        RestError errorBody = restErrorCreator.createRestError(ex.getCode(),
-                request.getLocale());
+        final RestError errorBody = restErrorCreator.createRestError(
+                ex.getCode(), request.getLocale());
         return handleExceptionInternal(ex, errorBody, null,
                 HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
@@ -123,28 +108,6 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final WebRequest request) {
         return handleExceptionInternal(ex, null, null,
                 HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
-
-    private RestError createBindingError(final BindingResult bindingResult,
-            final Locale locale) {
-        final RestError restError;
-        if (bindingResult.hasFieldErrors()) {
-            restError = restErrorCreator.createRestError(
-                    messageCodeOfFieldError, locale);
-            for (final FieldError fieldError : bindingResult.getFieldErrors()) {
-                restError.addDetail(restErrorCreator.createRestErrorDetail(
-                        fieldError, locale));
-            }
-        } else {
-            restError = restErrorCreator.createRestError(
-                    messageCodeOfObjectError, locale);
-            for (final ObjectError objectError : bindingResult
-                    .getGlobalErrors()) {
-                restError.addDetail(restErrorCreator.createRestErrorDetail(
-                        objectError, locale));
-            }
-        }
-        return restError;
     }
 
 }

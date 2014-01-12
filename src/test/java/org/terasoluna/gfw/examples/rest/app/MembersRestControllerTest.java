@@ -23,7 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-import org.terasoluna.gfw.examples.common.domain.model.Gender;
 import org.terasoluna.gfw.examples.rest.app.members.MemberResource;
 import org.terasoluna.gfw.examples.rest.app.members.MembersResource;
 
@@ -317,6 +316,7 @@ public class MembersRestControllerTest {
 
         try {
             MemberResource newResource = new MemberResource();
+            newResource.setFirstName("123456789012345678901234567890123456789012345678901");
             restTemplate.postForEntity(uri, newResource, MemberResource.class);
             fail("HttpStatusCodeException is not occurred.");
         } catch (HttpStatusCodeException e) {
@@ -530,7 +530,7 @@ public class MembersRestControllerTest {
         MemberResource newResource = new MemberResource();
         newResource.setFirstName("Kazuki");
         newResource.setLastName("Shimizu");
-        newResource.setGender(Gender.MAN);
+        newResource.setGender("MAN");
         newResource.setEmailAddress("kazuki.shimizu@test.com");
         newResource.setPhoneNumber("09012345678");
         newResource

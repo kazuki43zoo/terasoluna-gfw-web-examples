@@ -26,7 +26,7 @@ import org.terasoluna.gfw.examples.rest.domain.service.MemberService;
 /**
  * Controller to be provided API of member resource.
  */
-@RequestMapping("members")
+@RequestMapping(value = "members")
 @Controller
 public final class MembersRestController {
 

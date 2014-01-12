@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
-import org.terasoluna.gfw.examples.common.domain.model.Gender;
+import org.terasoluna.gfw.common.codelist.ExistInCodeList;
 
 public class MemberResource implements Serializable {
 
@@ -32,7 +32,9 @@ public class MemberResource implements Serializable {
     private String lastName;
 
     @NotNull
-    private Gender gender;
+    @Size(min = 1)
+    @ExistInCodeList(codeListId = "CL_GENDER")
+    private String gender;
 
     @NotNull
     @Size(min = 1, max = 256)
@@ -68,11 +70,11 @@ public class MemberResource implements Serializable {
         this.lastName = lastName;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

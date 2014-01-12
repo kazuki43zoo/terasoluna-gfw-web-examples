@@ -37,6 +37,8 @@
                 <entry key="UnrecognizedPropertyException" value="e.ex.fw.5502" />
                 <entry key="JsonMappingException" value="e.ex.fw.5503" />
                 <entry key="HttpRequestMethodNotSupportedException" value="e.ex.fw.5004" />
+                <entry key="MediaTypeNotAcceptableException" value="e.ex.fw.5005" />
+                <entry key="HttpMediaTypeNotSupportedException" value="e.ex.fw.5006" />
                 <entry key="ResourceNotFoundException" value="e.ex.fw.6001" />
                 <entry key="BusinessException" value="e.ex.fw.8001" />
             </map>

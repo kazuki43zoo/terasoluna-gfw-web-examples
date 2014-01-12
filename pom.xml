@@ -5,7 +5,7 @@
     <groupId>org.terasoluna.gfw.blank</groupId>
     <artifactId>terasoluna-gfw-web-examples</artifactId>
     <packaging>war</packaging>
-    <description>Blank project using TERASOLUNA Global Framework</description>
+    <description>Exsample of TERASOLUNA Global Framework</description>
     <parent>
         <groupId>org.terasoluna.gfw</groupId>
         <artifactId>terasoluna-gfw-parent</artifactId>
@@ -23,7 +23,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <id>terasoluna-gfw-releases</id>
-            <url>http://54.248.227.230/nexus/content/repositories/terasoluna-gfw-releases/</url>
+            <url>http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases/</url>
         </repository>
         <repository>
             <releases>
@@ -33,7 +33,7 @@
                 <enabled>true</enabled>
             </snapshots>
             <id>terasoluna-gfw-snapshots</id>
-            <url>http://54.248.227.230/nexus/content/repositories/terasoluna-gfw-snapshots/</url>
+            <url>http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-snapshots/</url>
         </repository>
         <repository>
             <releases>
@@ -43,7 +43,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <id>terasoluna-gfw-3rdparty</id>
-            <url>http://54.248.227.230/nexus/content/repositories/terasoluna-gfw-3rdparty/</url>
+            <url>http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-3rdparty/</url>
         </repository>
     </repositories>
     <dependencies>

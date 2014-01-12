@@ -1,6 +1,10 @@
 package org.terasoluna.gfw.examples.rest.app.common;
 
-public class RestErrorDetail {
+import java.io.Serializable;
+
+public class RestErrorDetail implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final String code;
     private final String message;

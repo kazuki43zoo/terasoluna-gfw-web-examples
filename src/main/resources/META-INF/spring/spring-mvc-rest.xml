@@ -8,17 +8,20 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- Load properties files for placeholder. -->
     <context:property-placeholder location="classpath*:/META-INF/spring/*.properties" />
 
+    <!-- Scan & register components of RESTful Web Service. -->
     <context:component-scan base-package="org.terasoluna.gfw.examples.rest.app">
         <context:exclude-filter type="assignable"
-            expression="org.terasoluna.gfw.examples.rest.app.common.RestGlobalExceptionHandler" />
+            expression="org.terasoluna.gfw.examples.rest.app.common.RestErrorCreator" />
     </context:component-scan>
-    <bean class="org.terasoluna.gfw.examples.rest.app.common.RestGlobalExceptionHandler">
-        <property name="messageCodeOfFieldError" value="e.ex.fw.5002" />
-        <property name="messageCodeOfObjectError" value="e.ex.fw.5003" />
+    <bean class="org.terasoluna.gfw.examples.rest.app.common.RestErrorCreator">
+        <constructor-arg name="messageCodeOfFieldError" value="e.ex.fw.5002" />
+        <constructor-arg name="messageCodeOfObjectError" value="e.ex.fw.5003" />
     </bean>
 
+    <!-- Register components of Spring MVC. -->
     <mvc:annotation-driven>
         <mvc:argument-resolvers>
             <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
@@ -28,6 +31,7 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
+    <!-- Register components of interceptor. -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
@@ -39,7 +43,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <!-- Setting AOP. -->
+    <!-- Register components of AOP. -->
     <bean id="handlerExceptionResolverLoggingInterceptor" class="org.terasoluna.gfw.web.exception.HandlerExceptionResolverLoggingInterceptor">
         <property name="exceptionLogger" ref="exceptionLogger" />
     </bean>
@@ -47,4 +51,5 @@
         <aop:advisor advice-ref="handlerExceptionResolverLoggingInterceptor"
             pointcut="execution(* org.springframework.web.servlet.HandlerExceptionResolver.resolveException(..))" />
     </aop:config>
+
 </beans>

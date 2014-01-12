@@ -1,5 +1,6 @@
 package org.terasoluna.gfw.examples.rest.app.common;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -37,15 +38,14 @@ public class RestResponseUtils {
      */
     public static ResponseEntity<Void> createEntityOfOptions(
             final HttpMethod... allowedMethods) {
-        final HttpHeaders responseHeaders = new HttpHeaders();
-        final Set<HttpMethod> allowedMethodSet = new LinkedHashSet<>();
-        for (final HttpMethod allowedMethod : allowedMethods) {
-            allowedMethodSet.add(allowedMethod);
-        }
+
+        final Set<HttpMethod> allowedMethodSet = new LinkedHashSet<>(
+                Arrays.asList(allowedMethods));
         if (!allowedMethodSet.contains(HttpMethod.OPTIONS)) {
             allowedMethodSet.add(HttpMethod.OPTIONS);
         }
 
+        final HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setAllow(allowedMethodSet);
 
         return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
