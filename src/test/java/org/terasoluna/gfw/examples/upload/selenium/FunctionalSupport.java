@@ -35,7 +35,7 @@ public abstract class FunctionalSupport extends ApplicationObjectSupport {
 
     @Before
     public void setUpProxyServer() {
-        proxyServer.newHar("localhost");
+        proxyServer.newHar("localhost:8080");
         proxyServer.setCaptureHeaders(true);
     }
 

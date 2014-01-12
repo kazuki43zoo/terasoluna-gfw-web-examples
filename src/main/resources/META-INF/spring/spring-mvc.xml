@@ -44,7 +44,10 @@
 
     <mvc:view-controller path="/" view-name="index" />
 
-    <context:component-scan base-package="org.terasoluna.gfw.*.*.app" />
+    <context:component-scan base-package="org.terasoluna.gfw.*.*.app">
+        <context:exclude-filter type="regex" expression="org.terasoluna.gfw.examples.rest.*"/>
+    </context:component-scan>
+    
     <mvc:resources mapping="/resources/**" location="/resources/,classpath:META-INF/resources/"
         cache-period="#{60 * 60}" />
     <mvc:resources mapping="/download/tmp/**" location="file:${app.upload.tmpDir}" cache-period="#{60 * 60}" />

@@ -11,7 +11,7 @@
     <div id="wrapper">
         <%-- screen name --%>
         <h1>Top Screen</h1>
-
+<spring:message text=""></spring:message>
         <h2>Applications of example</h2>
         <div>
             <h3>Upload</h3>
@@ -26,9 +26,10 @@
             </ul>
             <h3>FormHiddensTag(Prototype)</h3>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/utilities/hiddensTag/create">Multiple Screen in use case</a></li>
+                <li><a href="${pageContext.request.contextPath}/utilities/hiddensTag/createl">Multiple Screen in use case</a></li>
             </ul>
         </div>
+        
 
         <br>
 
