@@ -45,9 +45,9 @@
     <mvc:view-controller path="/" view-name="index" />
 
     <context:component-scan base-package="org.terasoluna.gfw.*.*.app">
-        <context:exclude-filter type="regex" expression="org.terasoluna.gfw.examples.rest.*"/>
+        <context:exclude-filter type="regex" expression="org.terasoluna.gfw.examples.rest.*" />
     </context:component-scan>
-    
+
     <mvc:resources mapping="/resources/**" location="/resources/,classpath:META-INF/resources/"
         cache-period="#{60 * 60}" />
     <mvc:resources mapping="/download/tmp/**" location="file:${app.upload.tmpDir}" cache-period="#{60 * 60}" />
@@ -62,6 +62,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/error/**" />
             <mvc:exclude-mapping path="/resources/**" />
             <mvc:exclude-mapping path="/download/**" />
             <mvc:exclude-mapping path="/**/*.html" />
@@ -69,6 +70,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/error/**" />
             <mvc:exclude-mapping path="/resources/**" />
             <mvc:exclude-mapping path="/download/**" />
             <mvc:exclude-mapping path="/**/*.html" />
@@ -76,6 +78,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/error/**" />
             <mvc:exclude-mapping path="/resources/**" />
             <mvc:exclude-mapping path="/download/**" />
             <mvc:exclude-mapping path="/**/*.html" />

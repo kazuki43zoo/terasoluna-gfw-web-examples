@@ -8,13 +8,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -23,12 +20,6 @@ import org.springframework.validation.ObjectError;
  * Creator of error object for REST.
  */
 public class RestErrorCreator {
-
-    /**
-     * logger.
-     */
-    private static final Logger logger = LoggerFactory
-            .getLogger(RestErrorCreator.class);
 
     /**
      * MessageSource object.
@@ -44,12 +35,6 @@ public class RestErrorCreator {
             "messageCodeOfObjectError" })
     public RestErrorCreator(final String messageCodeOfFieldError,
             final String messageCodeOfObjectError) {
-
-        Assert.hasText(messageCodeOfFieldError,
-                "messageCodeOfFieldError must not be empty.");
-        Assert.hasText(messageCodeOfObjectError,
-                "messageCodeOfObjectError must not be empty.");
-
         this.messageCodeOfFieldError = messageCodeOfFieldError;
         this.messageCodeOfObjectError = messageCodeOfObjectError;
     }
@@ -65,15 +50,11 @@ public class RestErrorCreator {
      *            arguments for to resolve the message.
      * @return error object
      */
-    public RestError createRestError(final String code, final Locale locale,
+    public RestError createRestError(final String code,
+            final String defaultMessage, final Locale locale,
             final Object... arguments) {
-        String localizedMessage = null;
-        try {
-            localizedMessage = messageSource
-                    .getMessage(code, arguments, locale);
-        } catch (NoSuchMessageException e) {
-            logger.error("Message not found.", e);
-        }
+        String localizedMessage = messageSource.getMessage(code, arguments,
+                defaultMessage, locale);
         return new RestError(code, localizedMessage);
     }
 
@@ -121,9 +102,6 @@ public class RestErrorCreator {
                 ;
             }
         }
-        if (usedCode == null) {
-            usedCode = codeList.get(1);
-        }
 
         return new RestErrorDetail(usedCode, localizedMessage);
     }
@@ -138,16 +116,18 @@ public class RestErrorCreator {
      * @return error object
      */
     public RestError createBindingError(final BindingResult bindingResult,
-            final Locale locale) {
+            final String defaultMessage, final Locale locale) {
         final RestError restError;
         if (bindingResult.hasFieldErrors()) {
-            restError = createRestError(messageCodeOfFieldError, locale);
+            restError = createRestError(messageCodeOfFieldError,
+                    defaultMessage, locale);
             for (final FieldError fieldError : bindingResult.getFieldErrors()) {
                 restError.addDetail(createRestErrorDetail(fieldError, locale,
                         fieldError.getRejectedValue()));
             }
         } else {
-            restError = createRestError(messageCodeOfObjectError, locale);
+            restError = createRestError(messageCodeOfObjectError,
+                    defaultMessage, locale);
             for (final ObjectError objectError : bindingResult
                     .getGlobalErrors()) {
                 restError.addDetail(createRestErrorDetail(objectError, locale));

@@ -39,6 +39,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/error/**" />
             <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

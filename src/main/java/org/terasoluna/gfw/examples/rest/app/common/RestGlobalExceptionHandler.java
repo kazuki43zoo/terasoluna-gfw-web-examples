@@ -35,7 +35,8 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpHeaders headers, final HttpStatus status,
             final WebRequest request) {
         final RestError errorBody = restErrorCreator.createBindingError(
-                ex.getBindingResult(), request.getLocale());
+                ex.getBindingResult(), ex.getLocalizedMessage(),
+                request.getLocale());
         return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
 
@@ -44,7 +45,7 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final BindException ex, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
         final RestError errorBody = restErrorCreator.createBindingError(ex,
-                request.getLocale());
+                ex.getLocalizedMessage(), request.getLocale());
         return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
 
@@ -53,16 +54,12 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpMessageNotReadableException ex,
             final HttpHeaders headers, final HttpStatus status,
             final WebRequest request) {
-        final String code;
         if (ex.getCause() instanceof Exception) {
-            code = exceptionCodeResolver.resolveExceptionCode((Exception) ex
-                    .getCause());
+            return handleExceptionInternal((Exception) ex.getCause(), null,
+                    headers, status, request);
         } else {
-            code = exceptionCodeResolver.resolveExceptionCode(ex);
+            return handleExceptionInternal(ex, null, headers, status, request);
         }
-        RestError errorBody = restErrorCreator.createRestError(code,
-                request.getLocale());
-        return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
 
     @Override
@@ -73,7 +70,7 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
         if (body == null) {
             final String code = exceptionCodeResolver.resolveExceptionCode(ex);
             errorBody = restErrorCreator.createRestError(code,
-                    request.getLocale());
+                    ex.getLocalizedMessage(), request.getLocale());
         } else {
             errorBody = body;
         }
@@ -98,7 +95,7 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleSystemException(
             final SystemException ex, final WebRequest request) {
         final RestError errorBody = restErrorCreator.createRestError(
-                ex.getCode(), request.getLocale());
+                ex.getCode(), ex.getLocalizedMessage(), request.getLocale());
         return handleExceptionInternal(ex, errorBody, null,
                 HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
