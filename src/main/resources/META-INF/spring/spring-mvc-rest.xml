@@ -12,14 +12,7 @@
     <context:property-placeholder location="classpath*:/META-INF/spring/*.properties" />
 
     <!-- Scan & register components of RESTful Web Service. -->
-    <context:component-scan base-package="org.terasoluna.gfw.examples.rest.app">
-        <context:exclude-filter type="assignable"
-            expression="org.terasoluna.gfw.examples.rest.app.common.RestErrorCreator" />
-    </context:component-scan>
-    <bean class="org.terasoluna.gfw.examples.rest.app.common.RestErrorCreator">
-        <constructor-arg name="messageCodeOfFieldError" value="e.ex.fw.5002" />
-        <constructor-arg name="messageCodeOfObjectError" value="e.ex.fw.5003" />
-    </bean>
+    <context:component-scan base-package="org.terasoluna.gfw.examples.rest.app" />
 
     <!-- Register components of Spring MVC. -->
     <mvc:annotation-driven>

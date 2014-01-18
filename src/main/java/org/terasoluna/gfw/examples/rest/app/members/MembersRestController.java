@@ -99,7 +99,7 @@ public final class MembersRestController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public final ResponseEntity<MemberResource> createMember(
-            @RequestBody @Validated({ Default.class, MemberCreating.class }) final MemberResource newResource) {
+            final @RequestBody @Validated({ Default.class, MemberCreating.class }) MemberResource newResource) {
 
         // create a new member.
         final Member member = conversionHelper.toMember(newResource);

@@ -14,7 +14,7 @@ public class RestError implements Serializable {
     private final String code;
     private final String message;
     @JsonSerialize(include = Inclusion.NON_EMPTY)
-    private final List<RestErrorDetail> details = new ArrayList<>();
+    private final List<RestError> details = new ArrayList<>();
 
     public RestError(final String code, final String message) {
         this.code = code;
@@ -29,16 +29,16 @@ public class RestError implements Serializable {
         return message;
     }
 
-    public List<RestErrorDetail> getDetails() {
+    public List<RestError> getDetails() {
         return details;
     }
 
-    public void setDetails(List<RestErrorDetail> details) {
+    public void setDetails(List<RestError> details) {
         this.details.clear();
         this.details.addAll(details);
     }
 
-    public void addDetail(RestErrorDetail detail) {
+    public void addDetail(RestError detail) {
         details.add(detail);
     }
 
