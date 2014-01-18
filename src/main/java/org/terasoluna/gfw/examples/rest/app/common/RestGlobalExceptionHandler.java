@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +19,7 @@ import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
 import org.terasoluna.gfw.common.exception.SystemException;
 
 /**
- * Global ExceptionHandler for REST.
+ * Global ExceptionHandler for RESTful Web Service.
  */
 @ControllerAdvice
 public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -34,18 +35,26 @@ public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final MethodArgumentNotValidException ex,
             final HttpHeaders headers, final HttpStatus status,
             final WebRequest request) {
-        final RestError errorBody = restErrorCreator.createBindingError(
-                ex.getBindingResult(), ex.getLocalizedMessage(),
-                request.getLocale());
-        return handleExceptionInternal(ex, errorBody, headers, status, request);
+        return handleBindingResult(ex, ex.getBindingResult(),
+                ex.getLocalizedMessage(), headers, status, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleBindException(
             final BindException ex, final HttpHeaders headers,
             final HttpStatus status, final WebRequest request) {
-        final RestError errorBody = restErrorCreator.createBindingError(ex,
-                ex.getLocalizedMessage(), request.getLocale());
+        return handleBindingResult(ex, ex.getBindingResult(),
+                ex.getLocalizedMessage(), headers, status, request);
+    }
+
+    protected ResponseEntity<Object> handleBindingResult(final Exception ex,
+            final BindingResult bindingResult, final String defaultMessage,
+            final HttpHeaders headers, final HttpStatus status,
+            final WebRequest request) {
+        final String code = exceptionCodeResolver.resolveExceptionCode(ex);
+        RestError errorBody = restErrorCreator.createBindingResultRestError(
+                code, bindingResult, ex.getLocalizedMessage(),
+                request.getLocale());
         return handleExceptionInternal(ex, errorBody, headers, status, request);
     }
 

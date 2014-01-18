@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Utility for HTTP Response of REST.
+ * Utility for HTTP Response of RESTful Web Service.
  */
 public class RestResponseUtils {
 

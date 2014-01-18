@@ -24,7 +24,7 @@ import org.terasoluna.gfw.examples.rest.app.members.MemberResource.MemberUpdatin
 import org.terasoluna.gfw.examples.rest.domain.service.MemberService;
 
 /**
- * Controller to be provided API of member resource.
+ * Controller to be provided RESTful Web Service API of member resource.
  */
 @RequestMapping(value = "members")
 @Controller
@@ -99,7 +99,7 @@ public final class MembersRestController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public final ResponseEntity<MemberResource> createMember(
-            @RequestBody @Validated({ Default.class, MemberCreating.class }) final MemberResource newResource) {
+            final @RequestBody @Validated({ Default.class, MemberCreating.class }) MemberResource newResource) {
 
         // create a new member.
         final Member member = conversionHelper.toMember(newResource);
@@ -132,7 +132,7 @@ public final class MembersRestController {
     }
 
     /**
-     * Get a member resource.
+     * Get a specified member resource.
      * <p>
      * Handle the request of GET and HEAD "/members/{memberId}" URI.
      * </p>

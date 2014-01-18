@@ -39,6 +39,8 @@
                 <entry key="HttpRequestMethodNotSupportedException" value="e.ex.fw.5004" />
                 <entry key="MediaTypeNotAcceptableException" value="e.ex.fw.5005" />
                 <entry key="HttpMediaTypeNotSupportedException" value="e.ex.fw.5006" />
+                <entry key="MethodArgumentNotValidException" value="e.ex.fw.5002" />
+                <entry key="BindException" value="e.ex.fw.5003" />
                 <entry key="ResourceNotFoundException" value="e.ex.fw.6001" />
                 <entry key="BusinessException" value="e.ex.fw.8001" />
             </map>
