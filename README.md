@@ -19,4 +19,7 @@ Examples of TERASOLUNA Global Framework for web
  - How to change the Sort condition from screen.
  - and more ... (to be continued). 
  
-
+* **RESTful Web Service** : see the 'org.terasoluna.gfw.examples.rest' package.
+ - Implementation of controller for RESTful Web Service APIs.
+ - Implementation of exception handling for RESTful Web Service.
+ - and more ... (to be continued). 

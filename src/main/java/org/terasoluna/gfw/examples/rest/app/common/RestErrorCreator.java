@@ -13,7 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 /**
- * Creator of error object for REST.
+ * Creator of error object for RESTful Web Service.
  */
 @Component
 public class RestErrorCreator extends ApplicationObjectSupport {

@@ -19,7 +19,7 @@ import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
 import org.terasoluna.gfw.common.exception.SystemException;
 
 /**
- * Global ExceptionHandler for REST.
+ * Global ExceptionHandler for RESTful Web Service.
  */
 @ControllerAdvice
 public class RestGlobalExceptionHandler extends ResponseEntityExceptionHandler {
