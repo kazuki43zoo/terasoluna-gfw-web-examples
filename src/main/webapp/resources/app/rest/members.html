@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../../vendor/bootstrap/bootstrap-3.0.0.css" rel="stylesheet">
+<link href="../../app/rest/members.css" rel="stylesheet">
+<title>RESTful Application Example</title>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="./members.html">Member Management Application</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="main" class="container">
+
+        <h1>Members</h1>
+
+        <form id="addForm" class="form">
+            <div>
+                <label class="item_name" for="firstName">First Name</label>:<input type="text" name="firstName"
+                    id="firstName" class="input-block-level" placeholder="First Name" />
+            </div>
+            <div>
+                <label class="item_name" for="lastName">Last Name</label>:<input type="text" name="lastName"
+                    id="lastName" class="input-block-level" placeholder="Last Name" />
+            </div>
+            <div>
+                <label class="item_name">Gender</label>:<input type="radio" name="gender" id="gender_man" value="MAN" /><label
+                    for="gender_man">Man</label><input type="radio" name="gender" id="gender_woman" value="WOMAN" /><label
+                    for="gender_woman">Woman</label>
+            </div>
+            <div>
+                <label class="item_name" for="emailAddress">E-Mail</label>:<input type="text" name="emailAddress"
+                    id="emailAddress" class="input-block-level" placeholder="E-mail" />
+            </div>
+            <a href="#" id="addBtn" class="btn btn-primary">Add</a>
+        </form>
+
+        <div id="memoList" class="row-fluid"></div>
+
+    </div>
+
+</body>
+<script type="text/template" id="tmpl-itemview">
+    <hr>
+    <h3>
+        <span><a href="#" class="deleteBtn btn btn-primary">Delete</a></span>
+        <span><%= firstName %> <%= lastName %> (<%= gender %>)</span>
+    </h3>
+    <p>
+        <a href="mailto:<%= lastName %>"><%= emailAddress %></a>
+    </p>
+</script>
+
+<script src="../../vendor/jquery/jquery-1.10.2.js"></script>
+<script src="../../vendor/json2/json2.js"></script>
+<script src="../../vendor/underscore/underscore-1.5.2.js"></script>
+<script src="../../vendor/backbone/backbone-1.1.0.js"></script>
+<script src="../../app/rest/members.js"></script>
+</html>

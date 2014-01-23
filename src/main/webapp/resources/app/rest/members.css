@@ -1,0 +1,30 @@
+@CHARSET "utf-8";
+body {
+	padding-top: 60px;
+}
+
+label.item_name {
+	width: 100px;
+}
+
+input[type="text"] {
+	margin-left: 5px;
+	width: 200px;
+}
+
+input[type="radio"] {
+	margin-left: 5px;
+}
+
+input[type="radio"]+label {
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+input[type="radio"]+label:HOVER {
+	cursor: pointer;
+}
+
+#addBtn {
+	margin-left: 108px;
+}

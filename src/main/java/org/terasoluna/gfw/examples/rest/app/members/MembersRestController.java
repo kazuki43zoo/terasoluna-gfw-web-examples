@@ -1,5 +1,7 @@
 package org.terasoluna.gfw.examples.rest.app.members;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.groups.Default;
 
@@ -68,7 +70,7 @@ public final class MembersRestController {
      * @return the entity to be written to the response.
      */
     @RequestMapping(method = { RequestMethod.GET, RequestMethod.HEAD })
-    public final ResponseEntity<MembersResource> getMembers(
+    public final ResponseEntity<List<MemberResource>> getMembers(
             final @Validated MembersSearchQuery query, final Pageable pageable) {
 
         // search collection of member.
@@ -78,11 +80,11 @@ public final class MembersRestController {
                 pageable);
 
         // create response resource.
-        final MembersResource responseResource = conversionHelper
-                .toMembersResource(page);
+        final List<MemberResource> responseResource = conversionHelper
+                .toMemberResourceList(page);
 
         // return the entity to be written to the response.
-        return new ResponseEntity<MembersResource>(responseResource,
+        return new ResponseEntity<List<MemberResource>>(responseResource,
                 HttpStatus.OK);
     }
 

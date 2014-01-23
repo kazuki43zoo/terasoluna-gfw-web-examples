@@ -1,5 +1,8 @@
 package org.terasoluna.gfw.examples.rest.app.members;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.dozer.Mapper;
@@ -43,15 +46,14 @@ public class MemberResourceConversionHelper {
      *            page object of member.
      * @return converted collection of member resource.
      */
-    public final MembersResource toMembersResource(final Page<Member> page) {
-        final MembersResource responseResource = new MembersResource();
-        responseResource.setTotalCount(page.getTotalElements());
+    public final List<MemberResource> toMemberResourceList(final Page<Member> page) {
+        List<MemberResource> members = new ArrayList<MemberResource>();
         for (final Member member : page.getContent()) {
             final MemberResource memberResource = beanMapper.map(member,
                     MemberResource.class);
-            responseResource.addMember(memberResource);
+            members.add(memberResource);
         }
-        return responseResource;
+        return members;
     }
 
     /**
