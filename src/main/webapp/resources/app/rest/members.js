@@ -15,14 +15,14 @@
      */
     var Members = Backbone.Collection.extend({
         model : Member,
-        url : "/terasoluna-gfw-web-examples/rest/members"
+        url : "../../../rest/members"
     });
 
     /**
      * View class of member element.
      */
     var MemberElementView = Backbone.View.extend({
-        tmpl : _.template($("#tmpl-itemview").html()),
+        tmpl : _.template($("#template-member-element-view").html()),
         events : {
             "click .deleteBtn" : "onDelete"
         },
