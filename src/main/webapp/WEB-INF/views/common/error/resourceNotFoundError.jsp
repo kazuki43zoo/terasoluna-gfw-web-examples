@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Resource Not Found Error!</title>
 <link rel="stylesheet"
-    href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+    href="${pageContext.request.contextPath}/resources/app/common/styles.css">
 </head>
 <body>
     <div id="wrapper">

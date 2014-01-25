@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>File Upload Screen</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/common/styles.css">
 </head>
 <body>
     <div id="wrapper">

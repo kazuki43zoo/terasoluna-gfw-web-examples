@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Ajax Simple Screen</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/common/styles.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript">
     $.ajaxSetup({
