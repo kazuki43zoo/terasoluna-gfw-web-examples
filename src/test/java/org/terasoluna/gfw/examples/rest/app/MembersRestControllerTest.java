@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -24,7 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.terasoluna.gfw.examples.rest.app.members.MemberResource;
-import org.terasoluna.gfw.examples.rest.app.members.MembersResource;
 
 public class MembersRestControllerTest {
 
@@ -42,31 +42,35 @@ public class MembersRestControllerTest {
     public void testGetMembers() throws JsonGenerationException,
             JsonMappingException, IOException {
         String uri = baseUri + "/members";
-        ResponseEntity<MembersResource> response = restTemplate.getForEntity(
-                uri, MembersResource.class);
+        @SuppressWarnings("rawtypes")
+        ResponseEntity<List> response = restTemplate.getForEntity(uri,
+                List.class);
+        System.out.println(response.getBody().get(0));
+        System.out.println(response.getBody().get(0).getClass());
         dumpHelper.dumpResponseEntity(response);
-        assertThat(response.getBody().getMembers().size(), not(0));
-        assertThat(response.getBody().getTotalCount(), not(0L));
+        assertThat(response.getBody().size(), not(0));
     }
 
     @Test
     public void testGetMembers_Pagenation1() throws JsonGenerationException,
             JsonMappingException, IOException {
         String uri = baseUri + "/members?page=1&size=5";
-        ResponseEntity<MembersResource> response = restTemplate.getForEntity(
-                uri, MembersResource.class);
+        @SuppressWarnings("rawtypes")
+        ResponseEntity<List> response = restTemplate.getForEntity(uri,
+                List.class);
         dumpHelper.dumpResponseEntity(response);
-        assertThat(response.getBody().getMembers().size(), is(5));
+        assertThat(response.getBody().size(), is(5));
     }
 
     @Test
     public void testGetMembers_Pagenation2() throws JsonGenerationException,
             JsonMappingException, IOException {
         String uri = baseUri + "/members?page=2&size=3";
-        ResponseEntity<MembersResource> response = restTemplate.getForEntity(
-                uri, MembersResource.class);
+        @SuppressWarnings("rawtypes")
+        ResponseEntity<List> response = restTemplate.getForEntity(uri,
+                List.class);
         dumpHelper.dumpResponseEntity(response);
-        assertThat(response.getBody().getMembers().size(), is(3));
+        assertThat(response.getBody().size(), is(3));
     }
 
     @Test
@@ -316,7 +320,8 @@ public class MembersRestControllerTest {
 
         try {
             MemberResource newResource = new MemberResource();
-            newResource.setFirstName("123456789012345678901234567890123456789012345678901");
+            newResource
+                    .setFirstName("123456789012345678901234567890123456789012345678901");
             restTemplate.postForEntity(uri, newResource, MemberResource.class);
             fail("HttpStatusCodeException is not occurred.");
         } catch (HttpStatusCodeException e) {
