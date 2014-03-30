@@ -1,26 +1,21 @@
-package org.terasoluna.gfw.examples.rest.app.members;
-
-import java.io.Serializable;
+package org.terasoluna.gfw.examples.rest.api.members;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import org.terasoluna.gfw.common.codelist.ExistInCodeList;
+import org.terasoluna.gfw.examples.rest.api.common.resource.ApiValidationGroups.PostResources;
+import org.terasoluna.gfw.examples.rest.api.common.resource.ApiValidationGroups.PutResource;
+import org.terasoluna.gfw.examples.rest.api.common.resource.hateoas.AbstractLinksSupportedResource;
 
-public class MemberResource implements Serializable {
+public class MemberResource extends AbstractLinksSupportedResource  {
 
     private static final long serialVersionUID = 1L;
 
-    public static interface MemberCreating {
-    }
-
-    public static interface MemberUpdating {
-    }
-
-    @Null(groups = MemberCreating.class)
-    @NotNull(groups = MemberUpdating.class)
-    @Size(min = 36, max = 36, groups = MemberUpdating.class)
+    @Null(groups = PostResources.class)
+    @NotNull(groups = PutResource.class)
+    @Size(min = 36, max = 36, groups = PutResource.class)
     private String memberId;
 
     @NotNull

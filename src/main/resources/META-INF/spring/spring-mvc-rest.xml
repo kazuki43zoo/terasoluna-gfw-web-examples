@@ -12,7 +12,7 @@
     <context:property-placeholder location="classpath*:/META-INF/spring/*.properties" />
 
     <!-- Scan & register components of RESTful Web Service. -->
-    <context:component-scan base-package="org.terasoluna.gfw.examples.rest.app" />
+    <context:component-scan base-package="org.terasoluna.gfw.examples.*.api" />
 
     <!-- Register components of Spring MVC. -->
     <mvc:annotation-driven>
@@ -22,6 +22,18 @@
                 <property name="oneIndexedParameters" value="true" />
             </bean>
         </mvc:argument-resolvers>
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                <property name="prettyPrint" value="true" />
+                <property name="objectMapper">
+                    <bean class="org.codehaus.jackson.map.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="org.codehaus.jackson.map.util.StdDateFormat" />
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
     </mvc:annotation-driven>
 
     <!-- Register components of interceptor. -->
@@ -34,6 +46,10 @@
             <mvc:mapping path="/**" />
             <mvc:exclude-mapping path="/error/**" />
             <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <ref bean="responseCacheInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 

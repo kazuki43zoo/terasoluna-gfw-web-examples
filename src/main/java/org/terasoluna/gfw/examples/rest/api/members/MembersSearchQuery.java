@@ -1,4 +1,4 @@
-package org.terasoluna.gfw.examples.rest.app.members;
+package org.terasoluna.gfw.examples.rest.api.members;
 
 import java.io.Serializable;
 

@@ -1,27 +1,27 @@
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000001,'title1', 'overview1', 'content1', current_date, 'author1', 1);
+    VALUES(90000001,'tit&le1', 'overview1', 'content1', current_date, 'author1', 1);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000002,'title2', 'overview2', 'content2', current_date, 'author2', 2);
+    VALUES(90000002,'tit&le2', 'overview2', 'content2', current_date, 'author2', 2);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000003,'title3', 'overview3', 'content3', current_date, 'author3', 3);
+    VALUES(90000003,'tit&le3', 'overview3', 'content3', current_date, 'author3', 3);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000004,'title4', 'overview4', 'content4', current_date, 'author4', 4);
+    VALUES(90000004,'tit&le4', 'overview4', 'content4', current_date, 'author4', 4);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000005,'title5', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000005,'tit&le5', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000006,'title6', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000006,'tit&le6', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000007,'title7', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000007,'tit&le7', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000008,'title8', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000008,'tit&le8', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000009,'title9', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000009,'tit&le9', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000010,'title10', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000010,'tit&le10', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000011,'title11', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000011,'tit&le11', 'overview5', 'content5', current_date, 'author5', 5);
 INSERT INTO t_article (article_id,title,overview,content,published_date,author,recommended_star) 
-    VALUES(90000012,'title12', 'overview5', 'content5', current_date, 'author5', 5);
+    VALUES(90000012,'tit&le12', 'overview5', 'content5', current_date, 'author5', 5);
 
 INSERT INTO t_member (member_id,first_name,last_name,gender,email_address,phone_number,address) 
     VALUES('9ddae6a8-0084-4b2a-8dd3-eceae81d9e82','FirstName','LastName','MAN','test@email.com',null,null);

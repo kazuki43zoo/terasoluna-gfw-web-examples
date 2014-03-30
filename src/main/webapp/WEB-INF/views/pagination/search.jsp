@@ -16,8 +16,6 @@
         $("#sort").on("change", function() {
             $("#paginationSearchForm").submit();
         });
-        // disabled csrf item.
-        $("input[name='_csrf']").attr("disabled", "disabled");
     });
 </script>
 </head>
@@ -31,36 +29,38 @@
 
         <%-- Search Form area --%>
         <div class="subArea">
-            <form:form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search"
-                method="get" modelAttribute="searchForm">
-                <div>
-                    <form:label path="title">Title</form:label>
-                    :
-                    <form:input path="title" />
-                    <span>(30 characters or less)</span>
-                    <form:errors path="title" />
-                </div>
-                <div>
-                    <form:label path="publishedDate">Published Date</form:label>
-                    :
-                    <form:input path="publishedDate" />
-                    <span>(yyyyMMdd)</span>
-                    <form:errors path="publishedDate" />
-                </div>
-                <div>
-                    <form:label path="size">Max display</form:label>
-                    :
-                    <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
-                </div>
-                <div>
-                    <form:label path="sort">Default sort</form:label>
-                    :
-                    <form:select path="sort" items="${CL_ARTICLE_SEARCH_DEFAULT_SORT}" />
-                </div>
-                <div class="formButtonArea">
-                    <form:button class="btn btn-primary">Search</form:button>
-                </div>
-            </form:form>
+            <form id="paginationSearchForm" action="${pageContext.request.contextPath}/pagination/search" method="get">
+
+                <spring:nestedPath path="searchForm">
+                    <div>
+                        <form:label path="title">Title</form:label>
+                        :
+                        <form:input path="title" />
+                        <span>(30 characters or less)</span>
+                        <form:errors path="title" />
+                    </div>
+                    <div>
+                        <form:label path="publishedDate">Published Date</form:label>
+                        :
+                        <form:input path="publishedDate" />
+                        <span>(yyyyMMdd)</span>
+                        <form:errors path="publishedDate" />
+                    </div>
+                    <div>
+                        <form:label path="size">Max display</form:label>
+                        :
+                        <form:select path="size" items="${CL_ARTICLE_SEARCH_MAX_DISPLAY_NUMBER}" />
+                    </div>
+                    <div>
+                        <form:label path="sort">Default sort</form:label>
+                        :
+                        <form:select path="sort" items="${CL_ARTICLE_SEARCH_DEFAULT_SORT}" />
+                    </div>
+                    <div class="formButtonArea">
+                        <form:button class="btn btn-primary">Search</form:button>
+                    </div>
+                </spring:nestedPath>
+            </form>
         </div>
 
         <%-- Search Result area --%>
@@ -79,14 +79,17 @@
                             <td>${(page.number * page.size) + rowStatus.count}</td>
                             <td>${f:h(article.title)}</td>
                             <td>${f:h(article.overview)}</td>
-                            <td><fmt:formatDate value="${article.publishedDate}" pattern="yyyy-MM-dd" /></td>
+                            <td>
+                                <fmt:formatDate value="${article.publishedDate}" pattern="yyyy-MM-dd" />
+                            </td>
                             <td>${f:h(article.author)}</td>
                         </tr>
                     </c:forEach>
                 </table>
                 <div id="paginationArea">
-                    <t:pagination page="${page}" queryTmpl="page={page}&${f:query(searchForm)}"
-                        outerElementClass="pagination" disabledHref="javascript:void(0);" />
+                    <t:pagination page="${page}" queryTmpl="page={page}&${f:query(searchForm)}" outerElementClass="pagination"
+                        disabledHref="javascript:void(0);"
+                    />
                     <div>Total : ${f:h(page.totalPages)} Pages</div>
                 </div>
             </c:if>

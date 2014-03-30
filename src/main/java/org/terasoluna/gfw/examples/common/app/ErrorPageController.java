@@ -12,21 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ErrorPageController {
 
-    @Value("${app.errorPage.servletNameForRest:restAppServlet}")
-    String servletNameForRest;
+    @Value("${app.errorPage.servletNameForApi:apiServlet}")
+    String servletNameForApi;
 
-    @Value("${app.errorPage.pathOfErrorHandlingForRest:/rest/error}")
-    String pathOfErrorPageForRest;
+    @Value("${app.errorPage.pathOfErrorPageForApi:/api/error}")
+    String pathOfErrorPageForApi;
 
     @RequestMapping
     public Object handleErrorPage(
-            final @RequestParam(value = "viewName", required = false) String viewName,
-            final HttpServletRequest request) {
-        final Object servletName = request
-                .getAttribute(RequestDispatcher.ERROR_SERVLET_NAME);
-        final boolean isRestServlet = servletNameForRest.equals(servletName);
+            @RequestParam(value = "viewName", required = false) String viewName,
+            HttpServletRequest request) {
+        Object servletName = request.getAttribute(RequestDispatcher.ERROR_SERVLET_NAME);
+        boolean isRestServlet = servletNameForApi.equals(servletName);
         if (isRestServlet) {
-            return "forward:" + pathOfErrorPageForRest;
+            return "forward:" + pathOfErrorPageForApi;
         } else {
             return viewName;
         }

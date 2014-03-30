@@ -126,7 +126,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>restAppServlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
@@ -150,7 +150,7 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/error?viewName=common/error/resourceNotFoundError&amp;messageCode=e.ex.fw.6001</location>
+        <location>/error?viewName=common/error/resourceNotFoundError&amp;errorCode=e.ex.fw.6001</location>
     </error-page>
 
     <error-page>

@@ -9,7 +9,7 @@
     <sec:http pattern="/resources/**" security="none" />
 
     <!-- Settings of RESTful Web Service. -->
-    <sec:http pattern="/rest/**" auto-config="true" use-expressions="true" create-session="stateless">
+    <sec:http pattern="/api/**" auto-config="true" use-expressions="true" create-session="stateless">
         <sec:custom-filter ref="userIdMDCPutFilter" after="ANONYMOUS_FILTER" />
     </sec:http>
 
