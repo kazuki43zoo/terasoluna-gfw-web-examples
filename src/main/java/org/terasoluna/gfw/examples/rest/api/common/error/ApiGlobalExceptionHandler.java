@@ -38,8 +38,7 @@ public class ApiGlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String code = null;
         if (body == null) {
             code = exceptionCodeResolver.resolveExceptionCode(ex);
-            apiError = apiErrorCreator.createRestError(code, ex.getLocalizedMessage(),
-                    request.getLocale());
+            apiError = apiErrorCreator.createRestError(request, code, ex.getLocalizedMessage());
         } else {
             apiError = body;
             if (apiError instanceof ExceptionCodeProvider) {
@@ -73,8 +72,8 @@ public class ApiGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleBindingResult(Exception ex, BindingResult bindingResult,
             String defaultMessage, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String code = exceptionCodeResolver.resolveExceptionCode(ex);
-        ApiError apiError = apiErrorCreator.createBindingResultRestError(code,
-                ex.getLocalizedMessage(), bindingResult, request.getLocale());
+        ApiError apiError = apiErrorCreator.createBindingResultRestError(request, code,
+                ex.getLocalizedMessage(), bindingResult);
         return handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
@@ -101,15 +100,14 @@ public class ApiGlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError;
         if (ex.getResultMessages().getList().size() == 1) {
             ResultMessage resultMessage = ex.getResultMessages().getList().iterator().next();
-            apiError = apiErrorCreator.createRestError(resultMessage.getCode(),
-                    resultMessage.getText(), request.getLocale(), resultMessage.getArgs());
+            apiError = apiErrorCreator.createRestError(request, resultMessage.getCode(),
+                    resultMessage.getText(), resultMessage.getArgs());
         } else {
             String code = exceptionCodeResolver.resolveExceptionCode(ex);
-            apiError = apiErrorCreator.createRestError(code, ex.getLocalizedMessage(),
-                    request.getLocale());
+            apiError = apiErrorCreator.createRestError(request, code, ex.getLocalizedMessage());
             for (ResultMessage resultMessage : ex.getResultMessages().getList()) {
-                apiError.addDetail(apiErrorCreator.createRestError(resultMessage.getCode(),
-                        resultMessage.getText(), request.getLocale(), resultMessage.getArgs()));
+                apiError.addDetail(apiErrorCreator.createRestError(request,
+                        resultMessage.getCode(), resultMessage.getText(), resultMessage.getArgs()));
             }
         }
         return handleExceptionInternal(ex, apiError, null, HttpStatus.CONFLICT, request);

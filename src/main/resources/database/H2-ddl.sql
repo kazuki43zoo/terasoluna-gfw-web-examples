@@ -17,6 +17,7 @@ CREATE TABLE t_member (
     email_address NVARCHAR(256) NOT NULL,
     phone_number NVARCHAR(20),
     address NVARCHAR(256),
-    CONSTRAINT pk_member PRIMARY KEY(member_id)
+    CONSTRAINT pk_member PRIMARY KEY(member_id),
+    CONSTRAINT uk_member1 UNIQUE KEY(email_address)
 );
 COMMIT;

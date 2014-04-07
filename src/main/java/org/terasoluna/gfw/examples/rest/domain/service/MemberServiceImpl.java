@@ -23,36 +23,35 @@ public class MemberServiceImpl implements MemberService {
     Mapper beanMapper;
 
     @Override
-    public Page<Member> searchMembers(final MemberSearchCriteria criteria,
-            final Pageable pageable) {
+    public Page<Member> searchMembers(MemberSearchCriteria criteria, Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
 
     @Override
-    public Member getMember(final String memberId) {
+    public Member getMember(String memberId) {
         final Member member = memberRepository.findOne(memberId);
         if (member == null) {
-            throw new ResourceNotFoundException(
-                    "Member is not found. memberId [" + memberId + "].");
+            throw new ResourceNotFoundException("Member is not found. memberId [" + memberId + "].");
         }
         return member;
     }
 
     @Override
-    public Member createMember(final Member newMember) {
-        final Member savedMember = memberRepository.save(newMember);
-        return savedMember;
+    public Member createMember(Member newMember) {
+        memberRepository.save(newMember);
+        return newMember;
     }
 
     @Override
-    public Member updateMember(final String memberId, final Member newMember) {
+    public Member updateMember(String memberId, Member newMember) {
         final Member member = getMember(memberId);
         beanMapper.map(newMember, member);
+        memberRepository.save(member);
         return member;
     }
 
     @Override
-    public void deleteMember(final String memberId) {
+    public void deleteMember(String memberId) {
         final Member member = memberRepository.findOne(memberId);
         if (member != null) {
             memberRepository.delete(member);

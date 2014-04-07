@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.terasoluna.gfw</groupId>
         <artifactId>terasoluna-gfw-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
     <properties>
         <java-version>1.7</java-version>
@@ -69,6 +69,10 @@
         <dependency>
             <groupId>org.terasoluna.gfw</groupId>
             <artifactId>terasoluna-gfw-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.terasoluna.gfw</groupId>
+            <artifactId>terasoluna-gfw-mybatis3</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

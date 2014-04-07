@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+    namespace="org.terasoluna.gfw.examples.common.domain.repository.MemberRepository">
+
+    <insert id="insert">
+        <selectKey keyProperty="memberId" order="BEFORE"
+            resultType="String">
+            SELECT RANDOM_UUID()
+        </selectKey>
+        INSERT INTO t_member (
+        member_id,
+        first_name,
+        last_name,
+        gender,
+        email_address,
+        phone_number,
+        address
+        )
+        VALUES
+        (
+        #{memberId},
+        #{firstName},
+        #{lastName},
+        #{gender},
+        #{emailAddress},
+        #{phoneNumber},
+        #{address}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE
+        t_member
+        SET
+        first_name = #{firstName},
+        last_name =
+        #{lastName},
+        gender = #{gender},
+        email_address =
+        #{emailAddress},
+        phone_number = #{phoneNumber},
+        address =
+        #{address}
+        WHERE
+        member_id = #{memberId}
+    </update>
+
+</mapper>

@@ -40,13 +40,6 @@ import org.terasoluna.gfw.examples.rest.domain.service.MemberService;
 @Controller
 public class MembersRestController {
 
-    private static final HttpEntity<Void> RESPONSE_ENTITY_FOR_OPTIONS_MEMBERS_URI = ResponseUtils
-            .createHttpEntityOfOptions(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST);
-
-    private static final HttpEntity<Void> RESPONSE_ENTITY_FOR_OPTIONS_MEMBER_URI = ResponseUtils
-            .createHttpEntityOfOptions(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.PUT,
-                    HttpMethod.DELETE);
-
     @Inject
     MemberService memberService;
 
@@ -103,7 +96,8 @@ public class MembersRestController {
     @RequestMapping(method = RequestMethod.OPTIONS)
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity<Void> optionsMembers() {
-        return RESPONSE_ENTITY_FOR_OPTIONS_MEMBERS_URI;
+        return ResponseUtils.createHttpEntityOfOptions(HttpMethod.GET, HttpMethod.HEAD,
+                HttpMethod.POST);
     }
 
     @RequestMapping(value = "{memberId}", method = { RequestMethod.GET, RequestMethod.HEAD })
@@ -158,7 +152,8 @@ public class MembersRestController {
         // search the specified member.
         memberService.getMember(memberId);
 
-        return RESPONSE_ENTITY_FOR_OPTIONS_MEMBER_URI;
+        return ResponseUtils.createHttpEntityOfOptions(HttpMethod.GET, HttpMethod.HEAD,
+                HttpMethod.PUT, HttpMethod.DELETE);
     }
 
 }

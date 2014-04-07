@@ -3,7 +3,6 @@ package org.terasoluna.gfw.examples.rest.api.common.error;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * Creator of error object for RESTful Web Service.
@@ -26,10 +26,10 @@ public class ApiErrorCreator extends ApplicationObjectSupport {
      * @param arguments arguments for to resolve the message.
      * @return error object
      */
-    public ApiError createRestError(String code, String defaultMessage, Locale locale,
+    public ApiError createRestError(WebRequest request, String code, String defaultMessage,
             Object... arguments) {
         String localizedMessage = getMessageSourceAccessor().getMessage(code, arguments,
-                defaultMessage, locale);
+                defaultMessage, request.getLocale());
         return new ApiError(code, localizedMessage);
     }
 
@@ -40,15 +40,15 @@ public class ApiErrorCreator extends ApplicationObjectSupport {
      * @param locale requested locale.
      * @return error object
      */
-    public ApiError createBindingResultRestError(String errorCode, String defaultMessage,
-            BindingResult bindingResult, Locale locale) {
-        ApiError restError = createRestError(errorCode, defaultMessage, locale);
+    public ApiError createBindingResultRestError(WebRequest request, String errorCode,
+            String defaultMessage, BindingResult bindingResult) {
+        ApiError restError = createRestError(request, errorCode, defaultMessage);
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            restError.addDetail(createRestError(fieldError, fieldError.getField(), locale,
+            restError.addDetail(createRestError(request, fieldError, fieldError.getField(),
                     fieldError.getRejectedValue()));
         }
         for (ObjectError objectError : bindingResult.getGlobalErrors()) {
-            restError.addDetail(createRestError(objectError, objectError.getObjectName(), locale));
+            restError.addDetail(createRestError(request, objectError, objectError.getObjectName()));
         }
         return restError;
     }
@@ -61,8 +61,9 @@ public class ApiErrorCreator extends ApplicationObjectSupport {
      * @param additionalArguments additional arguments for to resolve the message.
      * @return error detail object
      */
-    private ApiError createRestError(DefaultMessageSourceResolvable messageResolvable,
-            String target, Locale locale, Object... additionalArguments) {
+    private ApiError createRestError(WebRequest request,
+            DefaultMessageSourceResolvable messageResolvable, String target,
+            Object... additionalArguments) {
 
         // add additional arguments to the message binding arguments.
         List<Object> argumentList = new ArrayList<>();
@@ -73,7 +74,7 @@ public class ApiErrorCreator extends ApplicationObjectSupport {
         // resolve the message.
         String localizedMessage = getMessageSourceAccessor().getMessage(
                 new DefaultMessageSourceResolvable(messageResolvable.getCodes(), arguments,
-                        messageResolvable.getDefaultMessage()), locale);
+                        messageResolvable.getDefaultMessage()), request.getLocale());
 
         return new ApiError(messageResolvable.getCode(), localizedMessage, target);
     }
